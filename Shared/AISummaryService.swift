@@ -13,6 +13,14 @@ public final class AISummaryService: ObservableObject {
     
     @Published public var generatingMatchIds: Set<UUID> = []
     
+    public var isGenerating: Bool {
+        !generatingMatchIds.isEmpty
+    }
+
+    public func isGenerating(for matchId: UUID) -> Bool {
+        generatingMatchIds.contains(matchId)
+    }
+    
     public static var currentLanguage: String {
         let pref = Bundle.main.preferredLocalizations.first ?? Locale.current.language.languageCode?.identifier ?? "en"
         return pref.hasPrefix("th") ? "Thai" : "English"

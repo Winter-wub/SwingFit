@@ -482,7 +482,6 @@ public struct DashboardView: View {
     private var coachInsightCard: some View {
         let totalSwings = matches.reduce(0) { $0 + $1.totalSwings }
         let totalFh = matches.reduce(0) { $0 + $1.forehandCount }
-        let totalBh = matches.reduce(0) { $0 + $1.backhandCount }
         let totalDinks = matches.reduce(0) { $0 + $1.dinkCount }
         let fhRatio = totalSwings > 0 ? Int(Double(totalFh) / Double(totalSwings) * 100) : 50
 
@@ -910,7 +909,7 @@ public struct MatchAnalysisCardView: View {
                                 .foregroundColor(.emeraldGreen)
                                 .tracking(1.0)
                             Spacer()
-                            if aiService.isGenerating {
+                            if aiService.isGenerating(for: match.id) {
                                 ProgressView()
                                     .scaleEffect(0.7)
                             }
@@ -925,9 +924,7 @@ public struct MatchAnalysisCardView: View {
                                 .cornerRadius(12)
                         } else {
                             Button {
-                                Task {
-                                    await aiService.generateSummary(for: match)
-                                }
+                                aiService.generateSummary(for: match)
                             } label: {
                                 HStack(spacing: 6) {
                                     Image(systemName: "sparkles")
@@ -941,7 +938,7 @@ public struct MatchAnalysisCardView: View {
                                 .cornerRadius(12)
                             }
                             .buttonStyle(.plain)
-                            .disabled(aiService.isGenerating)
+                            .disabled(aiService.isGenerating(for: match.id))
                         }
                     }
                 }

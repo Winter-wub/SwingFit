@@ -185,6 +185,21 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         }
     }
 
+    public func setHittingHand(_ hand: String) {
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated else { return }
+
+        let payload: [String: Any] = ["hittingHand": hand]
+        if session.isReachable {
+            session.sendMessage(payload, replyHandler: nil) { error in
+                print("setHittingHand sendMessage error: \(error.localizedDescription)")
+            }
+        } else {
+            session.transferUserInfo(payload)
+        }
+    }
+
     #if os(watchOS)
     public func sendMatchStateToPhone(
         isRunning: Bool,
@@ -298,6 +313,12 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         if let command = dict["command"] as? String {
             print("WatchSyncManager received command: \(command)")
             triggerCommand(command)
+            return
+        }
+
+        // Handle hitting hand preference sync
+        if let hand = dict["hittingHand"] as? String {
+            UserDefaults.standard.set(hand, forKey: "hittingHand")
             return
         }
 
