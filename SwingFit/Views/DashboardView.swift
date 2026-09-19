@@ -846,7 +846,13 @@ public struct MatchAnalysisCardView: View {
         case .dink: return .orange
         case .smash: return .red
         case .serve: return .yellow
+        case .clear: return .purple
+        case .dropShot: return .cyan
+        case .drive: return .indigo
+        case .netShot: return .mint
+        case .lift: return .teal
         case .unknown: return .gray
+        @unknown default: return .gray
         }
     }
 
