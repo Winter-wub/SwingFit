@@ -1,2 +1,3 @@
-// Never include a local OpenRouter credential in release builds.
+// Never include a local API credential in release builds.
 OPENROUTER_API_KEY =
+GEMINI_API_KEY =

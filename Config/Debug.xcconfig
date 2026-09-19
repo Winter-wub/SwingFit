@@ -1,3 +1,4 @@
 // Debug builds may optionally load Config/Secrets.xcconfig generated from .env.
 OPENROUTER_API_KEY =
+GEMINI_API_KEY =
 #include? "Secrets.xcconfig"
