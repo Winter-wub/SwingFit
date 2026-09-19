@@ -1,0 +1,1520 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f2f5f4" />
+  <title>SwingFit AI Coach</title>
+  <meta name="description" content="Interactive iOS-only AI Coach UI demo for SwingFit." />
+  <style>
+    :root {
+      --app-bg: #f2f5f4;
+      --stage-bg: #101716;
+      --ink: #15211e;
+      --ink-soft: #53625e;
+      --ink-faint: #84908d;
+      --surface: rgba(255, 255, 255, 0.78);
+      --surface-strong: rgba(255, 255, 255, 0.94);
+      --line: rgba(21, 33, 30, 0.09);
+      --line-strong: rgba(255, 255, 255, 0.72);
+      --accent: #10b981;
+      --accent-deep: #087f5b;
+      --accent-soft: rgba(16, 185, 129, 0.13);
+      --purple: #8b5cf6;
+      --purple-soft: rgba(139, 92, 246, 0.12);
+      --danger: #e15b64;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 16%, rgba(16, 185, 129, 0.2), transparent 28rem),
+        radial-gradient(circle at 82% 76%, rgba(139, 92, 246, 0.16), transparent 26rem),
+        var(--stage-bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: grid;
+      place-items: center;
+      padding: max(24px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      color: inherit;
+    }
+
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid rgba(16, 185, 129, 0.35);
+      outline-offset: 2px;
+    }
+
+    .stage {
+      width: min(430px, 100%);
+      height: min(900px, calc(100vh - 48px));
+      min-height: 620px;
+      position: relative;
+    }
+
+    .phone {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 54px;
+      background: var(--app-bg);
+      box-shadow: var(--shadow), inset 0 0 0 7px #1d2725, inset 0 0 0 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .phone::before {
+      content: "";
+      width: 126px;
+      height: 31px;
+      position: absolute;
+      z-index: 20;
+      top: 13px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px;
+      background: #111817;
+      box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .app-shell {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(16, 185, 129, 0.12), transparent 16rem),
+        radial-gradient(circle at 94% 42%, rgba(139, 92, 246, 0.08), transparent 19rem),
+        var(--app-bg);
+    }
+
+    .status-bar {
+      height: 54px;
+      flex: 0 0 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 25px 0;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--ink);
+    }
+
+    .signal {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 11px;
+    }
+
+    .signal i {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--ink);
+    }
+
+    .signal i:nth-child(1) { height: 4px; }
+    .signal i:nth-child(2) { height: 6px; }
+    .signal i:nth-child(3) { height: 8px; }
+    .signal i:nth-child(4) { height: 10px; }
+
+    .battery {
+      width: 20px;
+      height: 10px;
+      margin-left: 4px;
+      position: relative;
+      border: 1.5px solid var(--ink);
+      border-radius: 3px;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      inset: 1.5px;
+      border-radius: 1px;
+      background: var(--accent);
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      right: -4px;
+      width: 2px;
+      height: 4px;
+      border-radius: 0 2px 2px 0;
+      background: var(--ink);
+    }
+
+    .header {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 3px 22px 14px;
+    }
+
+    .header-copy {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--accent-deep);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 25px;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-button,
+    .text-button {
+      border: 0;
+      cursor: pointer;
+      transition: transform 160ms ease, background 160ms ease, opacity 160ms ease;
+    }
+
+    .icon-button:active,
+    .text-button:active,
+    .chip:active,
+    .tab-button:active,
+    .sheet-option:active,
+    .send-button:active {
+      transform: scale(0.96);
+    }
+
+    .icon-button {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: var(--surface);
+      box-shadow: 0 5px 18px rgba(21, 33, 30, 0.05);
+    }
+
+    .icon-button svg,
+    .send-button svg,
+    .context-icon svg,
+    .coach-avatar svg,
+    .suggestion-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke-width: 2;
+    }
+
+    .text-button {
+      padding: 8px 10px;
+      border-radius: 11px;
+      background: transparent;
+      color: var(--accent-deep);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .content {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      scrollbar-width: none;
+      padding: 0 16px 14px;
+    }
+
+    .content::-webkit-scrollbar {
+      display: none;
+    }
+
+    .glass {
+      border: 1px solid var(--line-strong);
+      background: var(--surface);
+      box-shadow: 0 12px 34px rgba(27, 45, 40, 0.05);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .context-card {
+      position: relative;
+      overflow: hidden;
+      padding: 16px;
+      border-radius: var(--radius-xl);
+    }
+
+    .context-card::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -38px;
+      top: -50px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.12);
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .context-top {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .context-icon {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+    }
+
+    .context-title {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .context-title strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .context-title span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink-soft);
+      font-size: 11px;
+      line-height: 1.3;
+    }
+
+    .change-button {
+      flex: 0 0 auto;
+      padding: 7px 9px;
+      border: 1px solid rgba(16, 185, 129, 0.22);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.55);
+      color: var(--accent-deep);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .context-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-top: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .context-stat {
+      min-width: 0;
+      padding: 9px 6px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(21, 33, 30, 0.05);
+    }
+
+    .context-stat span {
+      display: block;
+      color: var(--ink-faint);
+      font-size: 8px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .context-stat strong {
+      display: block;
+      margin-top: 4px;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .context-remove {
+      margin-top: 11px;
+      position: relative;
+      z-index: 1;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink-faint);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .context-remove:hover {
+      color: var(--danger);
+    }
+
+    .conversation {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-top: 17px;
+    }
+
+    .message-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .message-row.user {
+      justify-content: flex-end;
+    }
+
+    .coach-avatar {
+      width: 29px;
+      height: 29px;
+      flex: 0 0 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: linear-gradient(145deg, var(--accent), #0ea873);
+      box-shadow: 0 5px 14px rgba(16, 185, 129, 0.24);
+    }
+
+    .message {
+      max-width: min(78%, 315px);
+      padding: 12px 13px;
+      border-radius: 17px;
+      font-size: 13px;
+      line-height: 1.48;
+      letter-spacing: -0.008em;
+    }
+
+    .message.coach {
+      border: 1px solid rgba(21, 33, 30, 0.06);
+      border-top-left-radius: 6px;
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: 0 7px 20px rgba(27, 45, 40, 0.045);
+    }
+
+    .message.user {
+      border-top-right-radius: 6px;
+      color: #fff;
+      background: linear-gradient(135deg, #0c9c6b, var(--accent));
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .message-label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--accent-deep);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .message.user .message-label {
+      display: none;
+    }
+
+    .drill-card {
+      display: block;
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 12px;
+      color: var(--ink);
+      background: rgba(139, 92, 246, 0.09);
+      border: 1px solid rgba(139, 92, 246, 0.14);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .drill-card strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #6d44d8;
+      font-size: 11px;
+    }
+
+    .typing {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      width: 58px;
+      height: 34px;
+      padding: 0 12px;
+      border-radius: 17px 17px 17px 6px;
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .typing.visible {
+      display: flex;
+    }
+
+    .typing i {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ink-faint);
+      animation: pulse 1s infinite ease-in-out;
+    }
+
+    .typing i:nth-child(2) { animation-delay: 120ms; }
+    .typing i:nth-child(3) { animation-delay: 240ms; }
+
+    @keyframes pulse {
+      0%, 60%, 100% { opacity: 0.35; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    .error-message {
+      display: none;
+      padding: 11px 12px;
+      border-radius: 13px;
+      color: #9e3037;
+      background: rgba(225, 91, 100, 0.1);
+      border: 1px solid rgba(225, 91, 100, 0.18);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .error-message.visible {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .retry-button {
+      padding: 5px 8px;
+      border: 0;
+      border-radius: 8px;
+      color: #9e3037;
+      background: rgba(225, 91, 100, 0.14);
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .suggestions {
+      margin-top: 19px;
+      padding-top: 2px;
+    }
+
+    .suggestions h2 {
+      margin-bottom: 9px;
+      font-size: 13px;
+      letter-spacing: -0.01em;
+    }
+
+    .suggestion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .chip {
+      min-height: 48px;
+      padding: 10px;
+      border: 1px solid rgba(21, 33, 30, 0.07);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.62);
+      color: var(--ink-soft);
+      text-align: left;
+      font-size: 11px;
+      line-height: 1.3;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .chip:hover {
+      border-color: rgba(16, 185, 129, 0.38);
+      background: rgba(255, 255, 255, 0.86);
+    }
+
+    .chip strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--ink);
+      font-size: 11px;
+    }
+
+    .empty-state {
+      display: none;
+      min-height: 420px;
+      padding: 52px 24px 24px;
+      text-align: center;
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .empty-glow {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.14);
+    }
+
+    .empty-glow svg {
+      width: 34px;
+      height: 34px;
+      stroke-width: 1.8;
+    }
+
+    .empty-state h2 {
+      font-size: 22px;
+      letter-spacing: -0.03em;
+    }
+
+    .empty-state p {
+      max-width: 270px;
+      margin: 9px auto 20px;
+      color: var(--ink-soft);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .empty-state .suggestion-grid {
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .composer-wrap {
+      flex: 0 0 auto;
+      padding: 8px 14px 10px;
+      background: linear-gradient(to bottom, rgba(242, 245, 244, 0), var(--app-bg) 24%);
+    }
+
+    .composer {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 8px 8px 8px 12px;
+      border: 1px solid rgba(21, 33, 30, 0.09);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 28px rgba(27, 45, 40, 0.08);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .context-pill {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 82px;
+      padding: 7px 8px;
+      border: 0;
+      border-radius: 12px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+      font-size: 10px;
+      font-weight: 800;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .composer textarea {
+      min-width: 0;
+      flex: 1;
+      height: 36px;
+      resize: none;
+      border: 0;
+      outline: 0;
+      color: var(--ink);
+      background: transparent;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .composer textarea::placeholder {
+      color: var(--ink-faint);
+    }
+
+    .send-button {
+      width: 36px;
+      height: 36px;
+      flex: 0 0 36px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 13px;
+      color: #fff;
+      background: linear-gradient(145deg, var(--accent), var(--accent-deep));
+      box-shadow: 0 7px 16px rgba(16, 185, 129, 0.26);
+      cursor: pointer;
+    }
+
+    .send-button:disabled {
+      opacity: 0.42;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .tabbar {
+      flex: 0 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      padding: 7px 10px calc(9px + env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(21, 33, 30, 0.07);
+      background: rgba(255, 255, 255, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .tab-button {
+      min-width: 0;
+      padding: 4px 2px 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink-faint);
+      font-size: 9px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-button svg {
+      width: 21px;
+      height: 21px;
+      display: block;
+      margin: 0 auto 3px;
+      stroke-width: 1.9;
+    }
+
+    .tab-button.active {
+      color: var(--accent-deep);
+    }
+
+    .tab-button.active svg {
+      filter: drop-shadow(0 4px 7px rgba(16, 185, 129, 0.22));
+    }
+
+    .sheet-backdrop {
+      position: absolute;
+      inset: 0;
+      z-index: 30;
+      display: none;
+      align-items: flex-end;
+      background: rgba(10, 18, 16, 0.34);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .sheet-backdrop.open {
+      display: flex;
+    }
+
+    .sheet {
+      width: 100%;
+      max-height: 82%;
+      overflow-y: auto;
+      padding: 9px 16px calc(18px + env(safe-area-inset-bottom));
+      border-radius: 28px 28px 0 0;
+      background: rgba(250, 252, 251, 0.97);
+      box-shadow: 0 -16px 50px rgba(10, 18, 16, 0.18);
+      transform: translateY(18px);
+      opacity: 0;
+      transition: transform 220ms ease, opacity 220ms ease;
+    }
+
+    .sheet-backdrop.open .sheet {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .sheet-handle {
+      width: 38px;
+      height: 5px;
+      margin: 0 auto 15px;
+      border-radius: 4px;
+      background: rgba(21, 33, 30, 0.16);
+    }
+
+    .sheet h2 {
+      font-size: 19px;
+      letter-spacing: -0.025em;
+    }
+
+    .sheet-subtitle {
+      margin: 6px 0 15px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .sheet-option {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 8px;
+      padding: 12px;
+      border: 1px solid rgba(21, 33, 30, 0.08);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.72);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .sheet-option.selected {
+      border-color: rgba(16, 185, 129, 0.52);
+      background: var(--accent-soft);
+    }
+
+    .option-radio {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 18px;
+      display: grid;
+      place-items: center;
+      border: 1.5px solid rgba(21, 33, 30, 0.18);
+      border-radius: 50%;
+      color: transparent;
+    }
+
+    .sheet-option.selected .option-radio {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .option-radio::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .option-copy {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .option-copy strong {
+      display: block;
+      font-size: 13px;
+    }
+
+    .option-copy span {
+      display: block;
+      margin-top: 2px;
+      color: var(--ink-soft);
+      font-size: 11px;
+    }
+
+    .sheet-footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .sheet-footer button {
+      flex: 1;
+      min-height: 45px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .secondary-button {
+      border: 1px solid rgba(21, 33, 30, 0.09);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .primary-button {
+      border: 0;
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      box-shadow: 0 8px 18px rgba(16, 185, 129, 0.22);
+    }
+
+    .privacy-list {
+      display: grid;
+      gap: 9px;
+      margin: 14px 0 0;
+    }
+
+    .privacy-item {
+      display: flex;
+      gap: 10px;
+      padding: 11px;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .privacy-item svg {
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+      color: var(--accent-deep);
+      stroke-width: 2;
+    }
+
+    .demo-note {
+      margin-top: 12px;
+      padding: 10px 11px;
+      border-radius: 12px;
+      color: var(--ink-soft);
+      background: var(--purple-soft);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .tab-panel {
+      display: none;
+      min-height: 100%;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    .tab-placeholder {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 30px 24px;
+      text-align: center;
+    }
+
+    .placeholder-card {
+      max-width: 290px;
+      padding: 24px 18px;
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: 0 12px 34px rgba(27, 45, 40, 0.05);
+    }
+
+    .placeholder-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 13px;
+      display: grid;
+      place-items: center;
+      border-radius: 16px;
+      color: var(--accent-deep);
+      background: var(--accent-soft);
+    }
+
+    .placeholder-icon svg {
+      width: 23px;
+      height: 23px;
+      stroke-width: 1.9;
+    }
+
+    .placeholder-card h2 {
+      font-size: 18px;
+    }
+
+    .placeholder-card p {
+      margin-top: 7px;
+      color: var(--ink-soft);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        display: block;
+        padding: 0;
+      }
+
+      .stage {
+        width: 100%;
+        height: 100dvh;
+        min-height: 0;
+      }
+
+      .phone {
+        border-radius: 0;
+        border: 0;
+        box-shadow: none;
+      }
+
+      .phone::before {
+        display: none;
+      }
+
+      .status-bar {
+        padding-top: max(10px, env(safe-area-inset-top));
+        height: calc(34px + env(safe-area-inset-top));
+        flex-basis: calc(34px + env(safe-area-inset-top));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="SwingFit AI Coach iOS demo">
+    <div class="phone">
+      <div class="app-shell">
+        <div class="status-bar" aria-hidden="true">
+          <span>9:41</span>
+          <div class="status-icons">
+            <div class="signal"><i></i><i></i><i></i><i></i></div>
+            <span>5G</span>
+            <span class="battery"></span>
+          </div>
+        </div>
+
+        <header class="header">
+          <div class="header-copy">
+            <p class="eyebrow">SwingFit · iOS</p>
+            <h1>AI Coach</h1>
+          </div>
+          <div class="header-actions">
+            <button class="text-button" id="newConversationButton" type="button">New chat</button>
+            <button class="icon-button" id="privacyButton" type="button" aria-label="What your coach can see">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v5"></path><path d="M12 8h.01"></path></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="content" id="content">
+          <section class="tab-panel active" id="coachPanel" aria-label="AI Coach">
+            <div id="chatView">
+              <section class="context-card glass" id="contextCard" aria-label="Selected match context">
+                <div class="context-top">
+                  <div class="context-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3v18"></path><path d="M6 5h9a3 3 0 0 1 0 6H6"></path><path d="M9 20h7a2 2 0 0 0 2-2v-2"></path><path d="M3 15h3"></path></svg>
+                  </div>
+                  <div class="context-title">
+                    <strong id="contextTitle">Pickleball · Latest match</strong>
+                    <span id="contextSubtitle">Won 21–18 · 42 swings · 38 min</span>
+                  </div>
+                  <button class="change-button" id="changeMatchButton" type="button">Change</button>
+                </div>
+                <div class="context-stats" aria-label="Match statistics">
+                  <div class="context-stat"><span>Swings</span><strong id="contextSwings">42</strong></div>
+                  <div class="context-stat"><span>Avg G</span><strong id="contextIntensity">3.8</strong></div>
+                  <div class="context-stat"><span>Heart</span><strong id="contextHeart">142</strong></div>
+                  <div class="context-stat"><span>Calories</span><strong id="contextCalories">186</strong></div>
+                </div>
+                <button class="context-remove" id="removeContextButton" type="button">Remove match context</button>
+              </section>
+
+              <div class="conversation" id="conversation" aria-live="polite">
+                <div class="message-row coach">
+                  <div class="coach-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                  </div>
+                  <div class="message coach">
+                    <span class="message-label">AI Coach</span>
+                    <span id="initialCoachMessage">Your forehand is doing the heavy lifting at 64% of all swings. That is a useful strength, but it gives opponents a clear target. Let us bring your backhand into the rally before looking for a winner.</span>
+                  </div>
+                </div>
+
+                <div class="message-row user">
+                  <div class="message user">
+                    <span>How can I improve my backhand?</span>
+                  </div>
+                </div>
+
+                <div class="message-row coach">
+                  <div class="coach-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                  </div>
+                  <div class="message coach">
+                    <span class="message-label">AI Coach</span>
+                    Start your unit turn earlier and keep the racket face slightly open through contact. Your next drill: hit 20 cross-court backhands, then call “reset” before every third shot.
+                    <span class="drill-card"><strong>Next drill · 8 minutes</strong>10 cross-court resets · 10 backhand drives · 5 minutes of live points</span>
+                  </div>
+                </div>
+
+                <div class="message-row coach">
+                  <div class="coach-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+                  </div>
+                  <div class="typing" id="typingIndicator" aria-label="Coach is typing"><i></i><i></i><i></i></div>
+                </div>
+
+                <div class="error-message" id="errorMessage" role="alert">
+                  <span>I could not reach the coach. Check your connection and try again.</span>
+                  <button class="retry-button" id="retryButton" type="button">Retry</button>
+                </div>
+              </div>
+
+              <section class="suggestions" aria-label="Suggested coaching questions">
+                <h2>Try asking</h2>
+                <div class="suggestion-grid">
+                  <button class="chip" type="button" data-prompt="Analyze my latest match"><strong>Match review</strong>Analyze my latest match</button>
+                  <button class="chip" type="button" data-prompt="How can I improve my backhand?"><strong>Backhand</strong>How can I improve my backhand?</button>
+                  <button class="chip" type="button" data-prompt="What should I practice next?"><strong>Next practice</strong>What should I practice next?</button>
+                  <button class="chip" type="button" data-prompt="How can I improve my court movement?"><strong>Movement</strong>How can I improve my court movement?</button>
+                </div>
+              </section>
+            </div>
+
+            <div class="empty-state" id="emptyView">
+              <div class="empty-glow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+              </div>
+              <h2>What would you like to improve?</h2>
+              <p>Ask about your latest match, technique, training plan, or fitness.</p>
+              <div class="suggestion-grid">
+                <button class="chip" type="button" data-prompt="Analyze my latest match"><strong>Match review</strong>Analyze my latest match</button>
+                <button class="chip" type="button" data-prompt="How can I improve my backhand?"><strong>Backhand</strong>How can I improve my backhand?</button>
+                <button class="chip" type="button" data-prompt="What should I practice next?"><strong>Next practice</strong>What should I practice next?</button>
+                <button class="chip" type="button" data-prompt="Create a 20-minute endurance plan"><strong>Fitness</strong>Create a 20-minute endurance plan</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="courtPanel" aria-label="Court HUD preview">
+            <div class="tab-placeholder">
+              <div class="placeholder-card glass">
+                <div class="placeholder-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"></path><path d="M12 4v16"></path><path d="M4 12h16"></path></svg>
+                </div>
+                <h2>Court HUD</h2>
+                <p>The existing live tracking screen stays here. AI Coach is available after the session syncs to iPhone.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="historyPanel" aria-label="History preview">
+            <div class="tab-placeholder">
+              <div class="placeholder-card glass">
+                <div class="placeholder-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><path d="M12 7v5l3 2"></path></svg>
+                </div>
+                <h2>History</h2>
+                <p>Match history remains available here. Open any match to ask the coach about that session.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="tab-panel" id="settingsPanel" aria-label="Settings preview">
+            <div class="tab-placeholder">
+              <div class="placeholder-card glass">
+                <div class="placeholder-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path><circle cx="9" cy="6" r="2"></circle><circle cx="15" cy="12" r="2"></circle><circle cx="8" cy="18" r="2"></circle></svg>
+                </div>
+                <h2>Settings</h2>
+                <p>Provider setup and privacy controls stay in Settings. No AI chat is added to watchOS.</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="composer-wrap">
+          <form class="composer" id="composer" aria-label="Ask AI Coach">
+            <button class="context-pill" id="composerContextButton" type="button" aria-label="Change match context">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v18"></path><path d="M6 5h9a3 3 0 0 1 0 6H6"></path></svg>
+              <span id="composerContextLabel">Latest</span>
+            </button>
+            <textarea id="composerInput" rows="1" aria-label="Message AI Coach" placeholder="Ask your coach…"></textarea>
+            <button class="send-button" id="sendButton" type="submit" aria-label="Send message" disabled>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"></path><path d="M22 2 11 13"></path></svg>
+            </button>
+          </form>
+        </div>
+
+        <nav class="tabbar" aria-label="SwingFit navigation">
+          <button class="tab-button" type="button" data-tab="courtPanel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+            Court HUD
+          </button>
+          <button class="tab-button active" type="button" data-tab="coachPanel" aria-current="page">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3"></path><path d="M12 18v3"></path><path d="M3 12h3"></path><path d="M18 12h3"></path><circle cx="12" cy="12" r="4"></circle></svg>
+            Coach
+          </button>
+          <button class="tab-button" type="button" data-tab="historyPanel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v5h5"></path><path d="M12 7v5l3 2"></path></svg>
+            History
+          </button>
+          <button class="tab-button" type="button" data-tab="settingsPanel">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path><circle cx="9" cy="6" r="2"></circle><circle cx="15" cy="12" r="2"></circle><circle cx="8" cy="18" r="2"></circle></svg>
+            Settings
+          </button>
+        </nav>
+      </div>
+
+      <div class="sheet-backdrop" id="matchSheet" role="dialog" aria-modal="true" aria-labelledby="matchSheetTitle">
+        <div class="sheet">
+          <div class="sheet-handle" aria-hidden="true"></div>
+          <h2 id="matchSheetTitle">Choose match context</h2>
+          <p class="sheet-subtitle">The coach can use this session to make its answer more specific.</p>
+          <div id="matchOptions">
+            <button class="sheet-option selected" type="button" data-match="latest">
+              <span class="option-radio" aria-hidden="true"></span>
+              <span class="option-copy"><strong>Latest match</strong><span>Pickleball · Won 21–18 · 42 swings</span></span>
+            </button>
+            <button class="sheet-option" type="button" data-match="previous">
+              <span class="option-radio" aria-hidden="true"></span>
+              <span class="option-copy"><strong>Previous match</strong><span>Pickleball · Lost 17–21 · 36 swings</span></span>
+            </button>
+            <button class="sheet-option" type="button" data-match="none">
+              <span class="option-radio" aria-hidden="true"></span>
+              <span class="option-copy"><strong>No match context</strong><span>Ask a general coaching question</span></span>
+            </button>
+          </div>
+          <div class="sheet-footer">
+            <button class="secondary-button" id="cancelMatchButton" type="button">Cancel</button>
+            <button class="primary-button" id="useMatchButton" type="button">Use selected</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sheet-backdrop" id="privacySheet" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+        <div class="sheet">
+          <div class="sheet-handle" aria-hidden="true"></div>
+          <h2 id="privacyTitle">What Coach can see</h2>
+          <p class="sheet-subtitle">You control which match is attached before sending a question.</p>
+          <div class="privacy-list">
+            <div class="privacy-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.4 3 8.4 7 10 4-1.6 7-5.6 7-10V6l-7-3Z"></path><path d="m9 12 2 2 4-4"></path></svg>
+              <span><strong>Only the selected match.</strong> The coach receives aggregated score, swing, intensity, heart-rate, and calorie data.</span>
+            </div>
+            <div class="privacy-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></svg>
+              <span><strong>No raw HealthKit samples.</strong> The demo does not send continuous heart-rate or location data.</span>
+            </div>
+            <div class="privacy-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5"></path><path d="M4 19h16"></path><path d="m8 14 3-3 3 2 5-6"></path></svg>
+              <span><strong>Local conversation history.</strong> Messages stay on this iPhone in the production design.</span>
+            </div>
+          </div>
+          <div class="demo-note"><strong>Demo tip:</strong> type “offline” and send to preview the retry state. This prototype does not call an AI provider.</div>
+          <div class="sheet-footer">
+            <button class="primary-button" id="closePrivacyButton" type="button">Got it</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const matches = {
+        latest: {
+          title: 'Pickleball · Latest match',
+          subtitle: 'Won 21–18 · 42 swings · 38 min',
+          swings: '42',
+          intensity: '3.8',
+          heart: '142',
+          calories: '186',
+          label: 'Latest'
+        },
+        previous: {
+          title: 'Pickleball · Previous match',
+          subtitle: 'Lost 17–21 · 36 swings · 41 min',
+          swings: '36',
+          intensity: '3.2',
+          heart: '138',
+          calories: '171',
+          label: 'Previous'
+        },
+        none: {
+          title: 'No match context',
+          subtitle: 'General coaching question',
+          swings: '—',
+          intensity: '—',
+          heart: '—',
+          calories: '—',
+          label: 'General'
+        }
+      };
+
+      const state = {
+        selectedMatch: 'latest',
+        pendingMatch: 'latest',
+        generating: false,
+        lastPrompt: ''
+      };
+
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+      const content = $('#content');
+      const chatView = $('#chatView');
+      const emptyView = $('#emptyView');
+      const contextCard = $('#contextCard');
+      const conversation = $('#conversation');
+      const typingIndicator = $('#typingIndicator');
+      const errorMessage = $('#errorMessage');
+      const composer = $('#composer');
+      const composerInput = $('#composerInput');
+      const sendButton = $('#sendButton');
+      const composerContextLabel = $('#composerContextLabel');
+      const matchSheet = $('#matchSheet');
+      const privacySheet = $('#privacySheet');
+
+      function setContext(matchKey) {
+        state.selectedMatch = matchKey;
+        const match = matches[matchKey];
+        $('#contextTitle').textContent = match.title;
+        $('#contextSubtitle').textContent = match.subtitle;
+        $('#contextSwings').textContent = match.swings;
+        $('#contextIntensity').textContent = match.intensity;
+        $('#contextHeart').textContent = match.heart;
+        $('#contextCalories').textContent = match.calories;
+        composerContextLabel.textContent = match.label;
+        contextCard.style.display = matchKey === 'none' ? 'none' : 'block';
+        $$('#matchOptions .sheet-option').forEach((option) => {
+          option.classList.toggle('selected', option.dataset.match === matchKey);
+        });
+      }
+
+      function openSheet(sheet) {
+        sheet.classList.add('open');
+      }
+
+      function closeSheet(sheet) {
+        sheet.classList.remove('open');
+      }
+
+      function scrollConversation() {
+        content.scrollTo({ top: content.scrollHeight, behavior: 'smooth' });
+      }
+
+      function addMessage(text, role = 'user') {
+        const row = document.createElement('div');
+        row.className = `message-row ${role}`;
+        const message = document.createElement('div');
+        message.className = `message ${role}`;
+        message.textContent = text;
+        if (role === 'coach') {
+          const label = document.createElement('span');
+          label.className = 'message-label';
+          label.textContent = 'AI Coach';
+          message.prepend(label);
+        }
+        row.append(message);
+        conversation.insertBefore(row, typingIndicator.parentElement);
+        scrollConversation();
+      }
+
+      function addDrillCard(text) {
+        const lastCoach = conversation.querySelector('.message-row.coach:last-of-type .message.coach');
+        if (!lastCoach) return;
+        const card = document.createElement('span');
+        card.className = 'drill-card';
+        card.innerHTML = `<strong>Next drill · 8 minutes</strong>${text}`;
+        lastCoach.append(card);
+      }
+
+      function coachResponse(prompt) {
+        const normalized = prompt.toLowerCase();
+        if (normalized.includes('offline')) {
+          throw new Error('offline');
+        }
+        if (normalized.includes('backhand')) {
+          return 'Your backhand is most effective when you prepare early and keep the contact point in front. Start with cross-court resets before adding pace; this gives you a larger margin while you rebuild consistency.';
+        }
+        if (normalized.includes('movement') || normalized.includes('footwork')) {
+          return 'Your session shows strong stroke volume, but the biggest gain is likely in recovery steps. Split-step as your opponent contacts the ball, then aim to arrive balanced before the shot instead of reaching at the last moment.';
+        }
+        if (normalized.includes('fitness') || normalized.includes('endurance') || normalized.includes('plan')) {
+          return 'Build endurance around rally-specific work: 4 × 3 minutes of continuous cross-court exchanges with 60 seconds rest. Keep the first two minutes controlled, then add one purposeful speed-up per rally.';
+        }
+        if (normalized.includes('practice') || normalized.includes('drill')) {
+          return 'Make the next session simple: 10 cross-court backhands, 10 third-shot drops, then 5 minutes of live points. The goal is not power—it is making the same preparation under pressure.';
+        }
+        if (normalized.includes('latest') || normalized.includes('analyze')) {
+          const match = matches[state.selectedMatch];
+          return `In this ${match.title.includes('Previous') ? 'previous' : 'latest'} session, your ${match.swings} swings show a useful mix of touch and pace. Your next adjustment is to protect the backhand side earlier, then use your stronger forehand to finish the point.`;
+        }
+        return 'A useful next step is to choose one repeatable cue for the next session. Try “early preparation, relaxed wrist, finish through the target,” then review whether the cue improves your backhand consistency.';
+      }
+
+      function setLoading(loading) {
+        state.generating = loading;
+        typingIndicator.classList.toggle('visible', loading);
+        sendButton.disabled = loading || !composerInput.value.trim();
+        $$('.chip').forEach((chip) => {
+          chip.disabled = loading;
+        });
+      }
+
+      function submitPrompt(prompt) {
+        const text = prompt.trim();
+        if (!text || state.generating) return;
+        state.lastPrompt = text;
+        emptyView.classList.remove('visible');
+        chatView.style.display = 'block';
+        errorMessage.classList.remove('visible');
+        addMessage(text, 'user');
+        composerInput.value = '';
+        sendButton.disabled = true;
+        setLoading(true);
+        window.setTimeout(() => {
+          try {
+            const response = coachResponse(text);
+            addMessage(response, 'coach');
+            if (text.toLowerCase().includes('backhand') || text.toLowerCase().includes('practice') || text.toLowerCase().includes('drill')) {
+              addDrillCard('10 cross-court resets · 10 controlled drives · 5 minutes of live points');
+            }
+          } catch (error) {
+            errorMessage.classList.add('visible');
+            scrollConversation();
+          } finally {
+            setLoading(false);
+            composerInput.focus();
+          }
+        }, 950);
+      }
+
+      $('#changeMatchButton').addEventListener('click', () => {
+        state.pendingMatch = state.selectedMatch;
+        $$('#matchOptions .sheet-option').forEach((option) => {
+          option.classList.toggle('selected', option.dataset.match === state.pendingMatch);
+        });
+        openSheet(matchSheet);
+      });
+
+      $('#composerContextButton').addEventListener('click', () => {
+        state.pendingMatch = state.selectedMatch;
+        $$('#matchOptions .sheet-option').forEach((option) => {
+          option.classList.toggle('selected', option.dataset.match === state.pendingMatch);
+        });
+        openSheet(matchSheet);
+      });
+
+      $$('#matchOptions .sheet-option').forEach((option) => {
+        option.addEventListener('click', () => {
+          state.pendingMatch = option.dataset.match;
+          $$('#matchOptions .sheet-option').forEach((item) => item.classList.toggle('selected', item === option));
+        });
+      });
+
+      $('#cancelMatchButton').addEventListener('click', () => closeSheet(matchSheet));
+      $('#useMatchButton').addEventListener('click', () => {
+        setContext(state.pendingMatch);
+        closeSheet(matchSheet);
+      });
+
+      $('#removeContextButton').addEventListener('click', () => setContext('none'));
+      $('#privacyButton').addEventListener('click', () => openSheet(privacySheet));
+      $('#closePrivacyButton').addEventListener('click', () => closeSheet(privacySheet));
+
+      [matchSheet, privacySheet].forEach((sheet) => {
+        sheet.addEventListener('click', (event) => {
+          if (event.target === sheet) closeSheet(sheet);
+        });
+      });
+
+      $('#newConversationButton').addEventListener('click', () => {
+        chatView.style.display = 'none';
+        emptyView.classList.add('visible');
+        composerInput.value = '';
+        sendButton.disabled = true;
+        composerInput.focus();
+      });
+
+      $$('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => submitPrompt(chip.dataset.prompt));
+      });
+
+      composer.addEventListener('submit', (event) => {
+        event.preventDefault();
+        submitPrompt(composerInput.value);
+      });
+
+      composerInput.addEventListener('input', () => {
+        sendButton.disabled = state.generating || !composerInput.value.trim();
+        composerInput.style.height = 'auto';
+        composerInput.style.height = `${Math.min(composerInput.scrollHeight, 92)}px`;
+      });
+
+      $('#retryButton').addEventListener('click', () => {
+        errorMessage.classList.remove('visible');
+        submitPrompt(state.lastPrompt);
+      });
+
+      $$('.tab-button').forEach((button) => {
+        button.addEventListener('click', () => {
+          const panelId = button.dataset.tab;
+          $$('.tab-button').forEach((tab) => {
+            tab.classList.toggle('active', tab === button);
+            if (tab === button) tab.setAttribute('aria-current', 'page');
+            else tab.removeAttribute('aria-current');
+          });
+          $$('.tab-panel').forEach((panel) => panel.classList.toggle('active', panel.id === panelId));
+          content.scrollTop = 0;
+        });
+      });
+
+      setContext('latest');
+      composerInput.focus();
+    })();
+  </script>
+</body>
+</html>

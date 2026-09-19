@@ -41,7 +41,7 @@ public final class AISummaryService: ObservableObject {
         Self.normalizedAPIKey(Bundle.main.object(forInfoDictionaryKey: "OPENROUTER_API_KEY") as? String)
     }
 
-    public static func normalizedAPIKey(_ rawValue: String?) -> String? {
+    nonisolated public static func normalizedAPIKey(_ rawValue: String?) -> String? {
         let key = rawValue?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
         guard !key.isEmpty, !key.hasPrefix("$(") else {
             return nil

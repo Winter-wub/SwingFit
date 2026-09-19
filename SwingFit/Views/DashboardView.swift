@@ -5,7 +5,8 @@ public struct DashboardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query(sort: \Match.startDate, order: .reverse) private var matches: [Match]
     @ObservedObject private var syncManager = WatchSyncManager.shared
-    
+    @EnvironmentObject private var coachService: CoachService
+
     @AppStorage("hittingHand") private var hittingHand: String = "right"
     @AppStorage("swingSensitivity") private var swingSensitivity: String = "medium"
     
@@ -48,7 +49,21 @@ public struct DashboardView: View {
             }
             .tag(1)
 
-            // Tab 2: Gear & Settings
+            // Tab 2: AI Coach chat
+            NavigationStack {
+                ZStack {
+                    liquidGlassBackground
+                    CoachChatView()
+                }
+                .navigationTitle("AI Coach")
+                .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Label("AI Coach", systemImage: "sparkles")
+            }
+            .tag(3)
+
+            // Tab 3: Gear & Settings
             NavigationStack {
                 settingsView
                     .navigationTitle("Gear & Settings")
@@ -148,6 +163,9 @@ public struct DashboardView: View {
                                                 expandedMatchId = nil
                                             }
                                             syncManager.deleteMatch(id: match.id)
+                                            coachService.cleanupOrphanedThreads(
+                                                matchIDs: Set(matches.map(\.id)).subtracting([match.id])
+                                            )
                                         }
                                     }
                                 )

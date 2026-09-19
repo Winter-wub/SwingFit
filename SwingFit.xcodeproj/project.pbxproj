@@ -7,17 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0041FCA34DFE8DEF2E492749 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
+		01BD7E8D9BA00328A16F8DCC /* CoachContextCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCB7E9D486B6BB181A93043 /* CoachContextCardView.swift */; };
+		03074907EF4055A54AF894D0 /* CoachThreadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDC629CBA6A2BED392CD9A /* CoachThreadStore.swift */; };
+		07CE3E0E99E13C29B56FCC76 /* CoachMessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88025330A37CD670C2683F6F /* CoachMessageRow.swift */; };
+		12C9CFF112B199F63D6F48D3 /* SportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA1CCB94CE52CF2F289B30 /* SportType.swift */; };
 		14744D63B46B0FDF30FD438F /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
-		161C725317DB5F59EADA8B95 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
 		1A6E33253390C46591E567F7 /* ScorekeeperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F1CDABB7280286BB035C9C /* ScorekeeperView.swift */; };
-		1CA4EDEE60121E8911EDFA97 /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
+		1C59695AC66EB64E53CC3EE3 /* AIChatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC2E6E418BF5C9F3AD87928 /* AIChatTypes.swift */; };
+		21439590AD37FBC7E051649C /* BadmintonScoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E02C53F074C572D394823488 /* BadmintonScoreTests.swift */; };
 		258CE53F1E66D1E0437EF577 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
 		2D6AD538CD5461F1FE400292 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69167AB94A25A3C0485A32 /* DashboardView.swift */; };
 		3BF2A6D01D183745E52239AF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
+		3D37488D6E52C86C9EF42045 /* CoachService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAF08C0445F2C4B42291682B /* CoachService.swift */; };
+		4163FB45058D466FE2BC5F29 /* AIChatProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579B981FF178603E8C1345CA /* AIChatProvider.swift */; };
 		45DDAFC02F579AD88EE54ED6 /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
+		4DE3A61AAE7366E314CEC3DB /* AIChatTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC2E6E418BF5C9F3AD87928 /* AIChatTypes.swift */; };
+		539803FBA07991C0E82DD5B5 /* SportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA1CCB94CE52CF2F289B30 /* SportType.swift */; };
 		55D271F8F25071C777F6FC41 /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
-		560B1EEC5D440F79D44EB3E3 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
 		574AC8A525AA80BEDED71DE2 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
 		63CDEC635B3902A86428A6FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 443453480010CD774AA110B7 /* Assets.xcassets */; };
 		66B02340D7B40381B22EA00B /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
@@ -25,22 +31,26 @@
 		6B7445431AA87C7E36FE88F7 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
 		727D45962A5E0AA625E64584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73EB703CBE3218C21B9BBCDA /* Assets.xcassets */; };
 		78B2B9F12B9438B05D1FC34D /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
+		83B8B5D4CB0E50BD4ACB1F37 /* CoachChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A673A7E5EBD03CA065531D2A /* CoachChatView.swift */; };
 		85FAC313DF07681D50F81FE8 /* SwingFitWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A257450A0A72AE55794892DE /* SwingFitWatchApp.swift */; };
-		89D1D24E2DDF3F7205F427C2 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
 		8B109083BC13EAD45ECDC6D2 /* SwingFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */; };
+		90542BC854A90371CFB643BB /* CoachThread.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9A7EBA11F464847BFD2C7CD /* CoachThread.swift */; };
 		9091B425E4DFC94AA94D894E /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
 		96AFDB6E5F511D30418F828D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
 		971D1A7C4F2C847AD1657BF9 /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
-		9DA6B708A30EFCD0AA329831 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
+		A1DAE652542D818802A2F0EB /* BadmintonScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F99AC7A43FF8D221B3B968B /* BadmintonScore.swift */; };
 		A51A28225A588EAFD8080FB9 /* AISummaryServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */; };
+		AFB1AB43FCCD3506F4FA0DD7 /* CoachMatchPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61DF50EEF52326DCCC8601C /* CoachMatchPickerView.swift */; };
 		B0867C55CE4F3219F21E896C /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
 		B7CF68DEFA0169E961EB788D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
 		B826A973A0331306702B8A29 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F0927F695793BB60CD05E /* MotionManager.swift */; };
 		BA41FF55DC84BD6B82BF7BDD /* SwingFitWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5EDDA771656684B494945B5B /* SwingFitWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C19A490EE2CCA1CE2E7DBF40 /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
+		C0BC0C0C116245D5B7F38396 /* CoachTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490AFCB269920EAF99BE624F /* CoachTests.swift */; };
 		D755A3842E2C5B705A8ED5D5 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6876D3F12FF4D71C1AD2D60A /* WorkoutManager.swift */; };
-		EAF3002AF6E51F3D78BBA2EB /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
+		DF08C5FF1DCAD98EC122AC29 /* BadmintonScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F99AC7A43FF8D221B3B968B /* BadmintonScore.swift */; };
+		E85F82EA24D9D69AE51C5F7D /* AIChatProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579B981FF178603E8C1345CA /* AIChatProvider.swift */; };
 		EBB9453E4B478662E12DB033 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
+		EBF941D7C4B9774A2B3A8EA1 /* CoachComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B026E54B8A6D1799734A27C3 /* CoachComposerView.swift */; };
 		FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
 /* End PBXBuildFile section */
 
@@ -78,10 +88,15 @@
 /* Begin PBXFileReference section */
 		04CC138289227B4616E2F438 /* SyncDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDTOs.swift; sourceTree = "<group>"; };
 		18D05D4C0EC2C19ED682F6E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		18FA1CCB94CE52CF2F289B30 /* SportType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportType.swift; sourceTree = "<group>"; };
+		1BCB7E9D486B6BB181A93043 /* CoachContextCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachContextCardView.swift; sourceTree = "<group>"; };
 		2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickleballScoreTests.swift; sourceTree = "<group>"; };
 		2A69167AB94A25A3C0485A32 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		2EC2E6E418BF5C9F3AD87928 /* AIChatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatTypes.swift; sourceTree = "<group>"; };
 		443453480010CD774AA110B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		490AFCB269920EAF99BE624F /* CoachTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachTests.swift; sourceTree = "<group>"; };
 		495F2F2BFC1C730B7EA9282A /* Swing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swing.swift; sourceTree = "<group>"; };
+		579B981FF178603E8C1345CA /* AIChatProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatProvider.swift; sourceTree = "<group>"; };
 		5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingFitApp.swift; sourceTree = "<group>"; };
 		5EDDA771656684B494945B5B /* SwingFitWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwingFitWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		60F70D4A5ABFF200E2B78E92 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
@@ -90,23 +105,39 @@
 		73EB703CBE3218C21B9BBCDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		801DA33C95002AA16CD9BEF5 /* SwingFitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SwingFitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85F256E7D76D112E4984FA2A /* SwingFitWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwingFitWatch.entitlements; sourceTree = "<group>"; };
+		88025330A37CD670C2683F6F /* CoachMessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMessageRow.swift; sourceTree = "<group>"; };
 		8E4ED3C1175A912A1723A38D /* SwingFit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwingFit.entitlements; sourceTree = "<group>"; };
 		973DFF1CE621385E135933FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISummaryService.swift; sourceTree = "<group>"; };
+		9F99AC7A43FF8D221B3B968B /* BadmintonScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadmintonScore.swift; sourceTree = "<group>"; };
 		A257450A0A72AE55794892DE /* SwingFitWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingFitWatchApp.swift; sourceTree = "<group>"; };
+		A61DF50EEF52326DCCC8601C /* CoachMatchPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMatchPickerView.swift; sourceTree = "<group>"; };
+		A673A7E5EBD03CA065531D2A /* CoachChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachChatView.swift; sourceTree = "<group>"; };
+		A9A7EBA11F464847BFD2C7CD /* CoachThread.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachThread.swift; sourceTree = "<group>"; };
+		AB0BE0F4F7EA4853FB000553 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		AB6F0927F695793BB60CD05E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		B026E54B8A6D1799734A27C3 /* CoachComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachComposerView.swift; sourceTree = "<group>"; };
+		BFCDC629CBA6A2BED392CD9A /* CoachThreadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachThreadStore.swift; sourceTree = "<group>"; };
 		C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISummaryServiceTests.swift; sourceTree = "<group>"; };
 		CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		D0F1FDE6B582A9329E15CB70 /* SwingFit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SwingFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickleballScore.swift; sourceTree = "<group>"; };
 		D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		E02C53F074C572D394823488 /* BadmintonScoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadmintonScoreTests.swift; sourceTree = "<group>"; };
 		E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
+		EAF08C0445F2C4B42291682B /* CoachService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachService.swift; sourceTree = "<group>"; };
+		F589256A272A9E363662D350 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		1C56B52353F462DD3FC00575 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A673A7E5EBD03CA065531D2A /* CoachChatView.swift */,
+				B026E54B8A6D1799734A27C3 /* CoachComposerView.swift */,
+				1BCB7E9D486B6BB181A93043 /* CoachContextCardView.swift */,
+				A61DF50EEF52326DCCC8601C /* CoachMatchPickerView.swift */,
+				88025330A37CD670C2683F6F /* CoachMessageRow.swift */,
 				2A69167AB94A25A3C0485A32 /* DashboardView.swift */,
 			);
 			path = Views;
@@ -129,6 +160,14 @@
 				5EDDA771656684B494945B5B /* SwingFitWatch.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		42A08CBDBD6185F721C0A7B7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A9A7EBA11F464847BFD2C7CD /* CoachThread.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		45B338A159768B11076F7E6B /* SwingFitWatch */ = {
@@ -155,6 +194,7 @@
 		855ADE1E5CB2339C4F977FA1 = {
 			isa = PBXGroup;
 			children = (
+				C0235FAD5696E4F17C3D76DD /* Config */,
 				F4331393712E139796371D93 /* Shared */,
 				D4653FD6573598A7B7F900E7 /* SwingFit */,
 				45B338A159768B11076F7E6B /* SwingFitWatch */,
@@ -163,10 +203,38 @@
 			);
 			sourceTree = "<group>";
 		};
+		88B9C391801F944B544D79A3 /* Coaching */ = {
+			isa = PBXGroup;
+			children = (
+				579B981FF178603E8C1345CA /* AIChatProvider.swift */,
+				2EC2E6E418BF5C9F3AD87928 /* AIChatTypes.swift */,
+			);
+			path = Coaching;
+			sourceTree = "<group>";
+		};
+		B0FD142475C5C9051DAFF9F6 /* Coaching */ = {
+			isa = PBXGroup;
+			children = (
+				EAF08C0445F2C4B42291682B /* CoachService.swift */,
+				BFCDC629CBA6A2BED392CD9A /* CoachThreadStore.swift */,
+			);
+			path = Coaching;
+			sourceTree = "<group>";
+		};
+		C0235FAD5696E4F17C3D76DD /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				F589256A272A9E363662D350 /* Debug.xcconfig */,
+				AB0BE0F4F7EA4853FB000553 /* Release.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		C33799A903F19BB22F246807 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				60F70D4A5ABFF200E2B78E92 /* Match.swift */,
+				18FA1CCB94CE52CF2F289B30 /* SportType.swift */,
 				495F2F2BFC1C730B7EA9282A /* Swing.swift */,
 				04CC138289227B4616E2F438 /* SyncDTOs.swift */,
 				D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */,
@@ -181,6 +249,8 @@
 				973DFF1CE621385E135933FC /* Info.plist */,
 				8E4ED3C1175A912A1723A38D /* SwingFit.entitlements */,
 				5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */,
+				B0FD142475C5C9051DAFF9F6 /* Coaching */,
+				42A08CBDBD6185F721C0A7B7 /* Models */,
 				1C56B52353F462DD3FC00575 /* Views */,
 			);
 			path = SwingFit;
@@ -190,6 +260,8 @@
 			isa = PBXGroup;
 			children = (
 				C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */,
+				E02C53F074C572D394823488 /* BadmintonScoreTests.swift */,
+				490AFCB269920EAF99BE624F /* CoachTests.swift */,
 				2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */,
 			);
 			path = Tests;
@@ -199,9 +271,11 @@
 			isa = PBXGroup;
 			children = (
 				99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */,
+				9F99AC7A43FF8D221B3B968B /* BadmintonScore.swift */,
 				CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */,
 				D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */,
 				E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */,
+				88B9C391801F944B544D79A3 /* Coaching */,
 				C33799A903F19BB22F246807 /* Models */,
 			);
 			path = Shared;
@@ -253,7 +327,6 @@
 			buildConfigurationList = 3F8B4CD806428A3750C4B9E5 /* Build configuration list for PBXNativeTarget "SwingFitTests" */;
 			buildPhases = (
 				DD75842B1D4A6890200FA507 /* Sources */,
-				D3DAF6B98389EA6793E6041B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -331,14 +404,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D3DAF6B98389EA6793E6041B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9DA6B708A30EFCD0AA329831 /* Localizable.xcstrings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -346,10 +411,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E85F82EA24D9D69AE51C5F7D /* AIChatProvider.swift in Sources */,
+				1C59695AC66EB64E53CC3EE3 /* AIChatTypes.swift in Sources */,
 				EBB9453E4B478662E12DB033 /* AISummaryService.swift in Sources */,
+				A1DAE652542D818802A2F0EB /* BadmintonScore.swift in Sources */,
+				83B8B5D4CB0E50BD4ACB1F37 /* CoachChatView.swift in Sources */,
+				EBF941D7C4B9774A2B3A8EA1 /* CoachComposerView.swift in Sources */,
+				01BD7E8D9BA00328A16F8DCC /* CoachContextCardView.swift in Sources */,
+				AFB1AB43FCCD3506F4FA0DD7 /* CoachMatchPickerView.swift in Sources */,
+				07CE3E0E99E13C29B56FCC76 /* CoachMessageRow.swift in Sources */,
+				3D37488D6E52C86C9EF42045 /* CoachService.swift in Sources */,
+				90542BC854A90371CFB643BB /* CoachThread.swift in Sources */,
+				03074907EF4055A54AF894D0 /* CoachThreadStore.swift in Sources */,
 				2D6AD538CD5461F1FE400292 /* DashboardView.swift in Sources */,
 				258CE53F1E66D1E0437EF577 /* Match.swift in Sources */,
 				971D1A7C4F2C847AD1657BF9 /* PickleballScore.swift in Sources */,
+				539803FBA07991C0E82DD5B5 /* SportType.swift in Sources */,
 				55D271F8F25071C777F6FC41 /* Swing.swift in Sources */,
 				8B109083BC13EAD45ECDC6D2 /* SwingFitApp.swift in Sources */,
 				B0867C55CE4F3219F21E896C /* SyncDTOs.swift in Sources */,
@@ -362,11 +439,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4163FB45058D466FE2BC5F29 /* AIChatProvider.swift in Sources */,
+				4DE3A61AAE7366E314CEC3DB /* AIChatTypes.swift in Sources */,
 				574AC8A525AA80BEDED71DE2 /* AISummaryService.swift in Sources */,
+				DF08C5FF1DCAD98EC122AC29 /* BadmintonScore.swift in Sources */,
 				14744D63B46B0FDF30FD438F /* Match.swift in Sources */,
 				B826A973A0331306702B8A29 /* MotionManager.swift in Sources */,
 				FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */,
 				1A6E33253390C46591E567F7 /* ScorekeeperView.swift in Sources */,
+				12C9CFF112B199F63D6F48D3 /* SportType.swift in Sources */,
 				78B2B9F12B9438B05D1FC34D /* Swing.swift in Sources */,
 				85FAC313DF07681D50F81FE8 /* SwingFitWatchApp.swift in Sources */,
 				45DDAFC02F579AD88EE54ED6 /* SyncDTOs.swift in Sources */,
@@ -380,15 +461,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				560B1EEC5D440F79D44EB3E3 /* AISummaryService.swift in Sources */,
 				A51A28225A588EAFD8080FB9 /* AISummaryServiceTests.swift in Sources */,
-				89D1D24E2DDF3F7205F427C2 /* Match.swift in Sources */,
-				EAF3002AF6E51F3D78BBA2EB /* PickleballScore.swift in Sources */,
+				21439590AD37FBC7E051649C /* BadmintonScoreTests.swift in Sources */,
+				C0BC0C0C116245D5B7F38396 /* CoachTests.swift in Sources */,
 				678B3F04EEFF30030ED21411 /* PickleballScoreTests.swift in Sources */,
-				1CA4EDEE60121E8911EDFA97 /* Swing.swift in Sources */,
-				C19A490EE2CCA1CE2E7DBF40 /* SyncDTOs.swift in Sources */,
-				0041FCA34DFE8DEF2E492749 /* WatchSyncManager.swift in Sources */,
-				161C725317DB5F59EADA8B95 /* WorkoutSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +582,7 @@
 		};
 		3A802DE64C9015798E708C85 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F589256A272A9E363662D350 /* Debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwingFit/SwingFit.entitlements;
@@ -515,7 +592,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OPENROUTER_API_KEY = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,6 +676,7 @@
 		};
 		718BF87A0AE8DABFE73762F7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB0BE0F4F7EA4853FB000553 /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwingFit/SwingFit.entitlements;
@@ -609,7 +686,6 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				OPENROUTER_API_KEY = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
