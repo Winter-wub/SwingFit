@@ -104,7 +104,8 @@ public final class Match {
         activeCalories: Double = 0.0,
         averageHeartRate: Double = 0.0,
         duration: TimeInterval = 0.0,
-        isComplete: Bool = false
+        isComplete: Bool = false,
+        sport: SportType = .pickleball
     ) {
         self.id = id
         self.startDate = startDate
@@ -115,6 +116,7 @@ public final class Match {
         self.averageHeartRate = averageHeartRate
         self.duration = duration
         self.isComplete = isComplete
+        self.sportRaw = sport.rawValue
         self.swings = []
     }
 }
