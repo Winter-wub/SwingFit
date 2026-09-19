@@ -9,6 +9,7 @@ public struct DashboardView: View {
     @AppStorage("hittingHand") private var hittingHand: String = "right"
     @AppStorage("swingSensitivity") private var swingSensitivity: String = "medium"
     
+    @State private var selectedTab: Int = 0 // 0: Court HUD, 1: Analytics & AI, 2: Gear & Settings
     @State private var expandedMatchId: UUID?
     @State private var showEndMatchAlert: Bool = false
     @State private var showDiscardMatchAlert: Bool = false
@@ -16,30 +17,109 @@ public struct DashboardView: View {
     public init() {}
 
     public var body: some View {
-        NavigationStack {
+        TabView(selection: $selectedTab) {
+            // Tab 0: Court HUD (Live Tracking & Quick Remote)
+            NavigationStack {
+                liveCourtView
+                    .navigationTitle("Court HUD")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            syncIndicatorButton
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Court HUD", systemImage: "figure.pickleball")
+            }
+            .tag(0)
+
+            // Tab 1: Match Analytics & Gemini AI Coach
+            NavigationStack {
+                analyticsView
+                    .navigationTitle("Match Analytics")
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            syncIndicatorButton
+                        }
+                    }
+            }
+            .tabItem {
+                Label("Analytics & AI", systemImage: "chart.bar.xaxis")
+            }
+            .tag(1)
+
+            // Tab 2: Gear & Settings
+            NavigationStack {
+                settingsView
+                    .navigationTitle("Gear & Settings")
+            }
+            .tabItem {
+                Label("Settings", systemImage: "gearshape.fill")
+            }
+            .tag(2)
+        }
+        .tint(.emeraldGreen)
+        .onAppear {
+            syncManager.requestSyncFromWatch()
+        }
+    }
+
+    private var syncIndicatorButton: some View {
+        Button {
+            syncManager.requestSyncFromWatch()
+        } label: {
+            HStack(spacing: 5) {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                if syncManager.isReachable {
+                    Circle()
+                        .fill(Color.green)
+                        .frame(width: 7, height: 7)
+                }
+            }
+            .font(.subheadline)
+        }
+    }
+
+    // MARK: - TAB 0: Live Court HUD View (Liquid Glass)
+    private var liveCourtView: some View {
+        ZStack {
+            liquidGlassBackground
+
             ScrollView {
                 VStack(alignment: .leading, spacing: 18) {
-                    // Match Control Card (Start from iPhone / Live Telemetry HUD)
+                    // Match Control Card (Liquid Glass)
                     matchControlCard
 
                     // Coach Insight Card
                     coachInsightCard
 
-                    // Top Stat Summary Cards
+                    // Quick Glance Stats
                     statsSummaryGrid
+                }
+                .padding(.vertical)
+            }
+        }
+    }
 
-                    // Watch Sensor Calibration
-                    calibrationCard
+    // MARK: - TAB 1: Analytics & AI View
+    private var analyticsView: some View {
+        ZStack {
+            liquidGlassBackground
 
-                    // Section Title
+            ScrollView {
+                VStack(alignment: .leading, spacing: 18) {
+                    // Header Status
                     HStack {
-                        Text("Match Analysis")
-                            .font(.title2.bold())
-                            .foregroundColor(.primary)
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("HISTORY & AI BREAKDOWN")
+                                .font(.system(size: 10, weight: .black))
+                                .tracking(1.2)
+                                .foregroundColor(.emeraldGreen)
+                            Text("\(matches.count) Recorded Matches")
+                                .font(.title3.bold())
+                                .foregroundColor(.primary)
+                        }
                         Spacer()
-                        Text("\(matches.count) Recorded")
-                            .font(.caption)
-                            .foregroundColor(.secondary)
                     }
                     .padding(.horizontal)
 
@@ -78,31 +158,48 @@ public struct DashboardView: View {
                 }
                 .padding(.vertical)
             }
-            .background(Color(uiColor: .systemGroupedBackground).ignoresSafeArea())
-            .navigationTitle("SwingFit Coach")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        syncManager.requestSyncFromWatch()
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                            if syncManager.isReachable {
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 6, height: 6)
-                            }
-                        }
-                    }
+        }
+    }
+
+    // MARK: - TAB 2: Gear & Settings View
+    private var settingsView: some View {
+        ZStack {
+            liquidGlassBackground
+
+            ScrollView {
+                VStack(spacing: 18) {
+                    calibrationCard
+                    deviceStatusCard
                 }
-            }
-            .onAppear {
-                syncManager.requestSyncFromWatch()
+                .padding()
             }
         }
     }
 
-    // MARK: - Match Remote Control Card
+    // MARK: - Liquid Glass Background Layer
+    private var liquidGlassBackground: some View {
+        ZStack {
+            Color(uiColor: .systemGroupedBackground).ignoresSafeArea()
+
+            // Subtle luminous ambient specular lighting (Apple Glass glow)
+            GeometryReader { geo in
+                Circle()
+                    .fill(Color.emeraldGreen.opacity(0.1))
+                    .frame(width: 320, height: 320)
+                    .blur(radius: 80)
+                    .offset(x: -80, y: -60)
+
+                Circle()
+                    .fill(Color.purple.opacity(0.08))
+                    .frame(width: 280, height: 280)
+                    .blur(radius: 90)
+                    .offset(x: geo.size.width - 160, y: geo.size.height * 0.4)
+            }
+            .ignoresSafeArea()
+        }
+    }
+
+    // MARK: - Match Remote Control Card (Liquid Glass)
     private var matchControlCard: some View {
         Group {
             if syncManager.isWatchMatchRunning {
@@ -135,35 +232,39 @@ public struct DashboardView: View {
     }
 
     private var startMatchPromptCard: some View {
-        VStack(spacing: 14) {
-            HStack(spacing: 12) {
+        VStack(spacing: 16) {
+            HStack(spacing: 14) {
                 ZStack {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [Color.emeraldGreen.opacity(0.25), Color.emeraldGreen.opacity(0.1)],
+                                colors: [Color.emeraldGreen.opacity(0.35), Color.emeraldGreen.opacity(0.1)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .frame(width: 48, height: 48)
+                        .frame(width: 52, height: 52)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.emeraldGreen.opacity(0.3), lineWidth: 1)
+                        )
 
                     Image(systemName: "figure.pickleball")
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.system(size: 26, weight: .bold))
                         .foregroundColor(.emeraldGreen)
                 }
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Ready to Play?")
+                    Text("Ready for Court Action?")
                         .font(.headline.bold())
                         .foregroundColor(.primary)
 
-                    HStack(spacing: 5) {
+                    HStack(spacing: 6) {
                         Circle()
                             .fill(syncManager.isReachable ? Color.green : Color.orange)
-                            .frame(width: 7, height: 7)
+                            .frame(width: 8, height: 8)
 
-                        Text(syncManager.isReachable ? "Apple Watch Connected" : "Will launch Apple Watch")
+                        Text(syncManager.isReachable ? "Apple Watch Paired & Active" : "Will launch Apple Watch")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }
@@ -179,32 +280,40 @@ public struct DashboardView: View {
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "play.fill")
-                        .font(.system(size: 16, weight: .bold))
-                    Text("Start Match from iPhone")
-                        .font(.system(size: 16, weight: .bold))
+                        .font(.system(size: 16, weight: .heavy))
+                    Text("Start Live Court Session")
+                        .font(.system(size: 16, weight: .bold, design: .rounded))
                 }
                 .foregroundColor(.black)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 14)
                 .background(
                     LinearGradient(
-                        colors: [Color.emeraldGreen, Color.green],
+                        colors: [Color.emeraldGreen, Color(red: 0.2, green: 0.9, blue: 0.5)],
                         startPoint: .leading,
                         endPoint: .trailing
                     )
                 )
-                .cornerRadius(14)
-                .shadow(color: Color.emeraldGreen.opacity(0.3), radius: 8, x: 0, y: 4)
+                .cornerRadius(16)
+                .shadow(color: Color.emeraldGreen.opacity(0.35), radius: 10, x: 0, y: 4)
             }
             .buttonStyle(.plain)
         }
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(18)
+        .padding(18)
+        .background(.ultraThinMaterial)
         .overlay(
-            RoundedRectangle(cornerRadius: 18)
-                .stroke(Color.emeraldGreen.opacity(0.2), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 22)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.4), .white.opacity(0.1)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
         )
+        .clipShape(RoundedRectangle(cornerRadius: 22))
+        .shadow(color: Color.black.opacity(0.04), radius: 12, x: 0, y: 4)
     }
 
     private var activeMatchHUDCard: some View {
@@ -216,13 +325,13 @@ public struct DashboardView: View {
                         .fill(syncManager.isWatchMatchPaused ? Color.yellow : Color.green)
                         .frame(width: 9, height: 9)
 
-                    Text(syncManager.isWatchMatchPaused ? "MATCH PAUSED" : "LIVE MATCH TRACKING")
+                    Text(syncManager.isWatchMatchPaused ? "SESSION PAUSED" : "LIVE COURT TRACKING")
                         .font(.system(size: 11, weight: .black))
                         .foregroundColor(syncManager.isWatchMatchPaused ? .yellow : .green)
-                        .tracking(0.5)
+                        .tracking(0.8)
                 }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
                 .background((syncManager.isWatchMatchPaused ? Color.yellow : Color.green).opacity(0.15))
                 .cornerRadius(8)
 
@@ -233,68 +342,64 @@ public struct DashboardView: View {
                     Image(systemName: "timer")
                         .font(.system(size: 13, weight: .semibold))
                     Text(formatLiveDuration(syncManager.liveDuration))
-                        .font(.system(size: 16, weight: .bold, design: .monospaced))
+                        .font(.system(size: 18, weight: .bold, design: .monospaced))
                 }
                 .foregroundColor(.primary)
             }
 
-            // 3-Column Live Telemetry
+            // 3-Column Live Telemetry (Liquid Glass tiles)
             HStack(spacing: 10) {
                 // Swings Count
                 VStack(spacing: 2) {
                     Text("\(syncManager.liveSwingsCount)")
-                        .font(.system(size: 32, weight: .heavy, design: .rounded))
+                        .font(.system(size: 34, weight: .heavy, design: .rounded))
                         .foregroundColor(.green)
-                    Text("SWINGS")
-                        .font(.system(size: 10, weight: .bold))
+                    Text("STROKES")
+                        .font(.system(size: 10, weight: .black))
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(Color(uiColor: .tertiarySystemGroupedBackground))
-                .cornerRadius(12)
+                .padding(.vertical, 12)
+                .background(Color.green.opacity(0.08))
+                .cornerRadius(14)
 
                 // Heart Rate
                 VStack(spacing: 2) {
-                    HStack(alignment: .lastTextBaseline, spacing: 2) {
-                        Text(syncManager.liveHeartRate > 0 ? "\(Int(syncManager.liveHeartRate))" : "--")
-                            .font(.system(size: 32, weight: .heavy, design: .rounded))
+                    HStack(spacing: 2) {
+                        Image(systemName: "heart.fill")
+                            .font(.system(size: 12))
                             .foregroundColor(.red)
-                        if syncManager.liveHeartRate > 0 {
-                            Image(systemName: "heart.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.red)
-                        }
+                        Text("\(Int(syncManager.liveHeartRate))")
+                            .font(.system(size: 30, weight: .heavy, design: .rounded))
+                            .foregroundColor(.red)
                     }
                     Text("BPM")
-                        .font(.system(size: 10, weight: .bold))
+                        .font(.system(size: 10, weight: .black))
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(Color(uiColor: .tertiarySystemGroupedBackground))
-                .cornerRadius(12)
+                .padding(.vertical, 12)
+                .background(Color.red.opacity(0.08))
+                .cornerRadius(14)
 
                 // Calories
                 VStack(spacing: 2) {
-                    HStack(alignment: .lastTextBaseline, spacing: 2) {
-                        Text(syncManager.liveCalories > 0 ? "\(Int(syncManager.liveCalories))" : "--")
-                            .font(.system(size: 32, weight: .heavy, design: .rounded))
+                    HStack(spacing: 2) {
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 12))
                             .foregroundColor(.pink)
-                        if syncManager.liveCalories > 0 {
-                            Image(systemName: "flame.fill")
-                                .font(.system(size: 12))
-                                .foregroundColor(.pink)
-                        }
+                        Text("\(Int(syncManager.liveCalories))")
+                            .font(.system(size: 30, weight: .heavy, design: .rounded))
+                            .foregroundColor(.pink)
                     }
-                    Text("KCAL")
-                        .font(.system(size: 10, weight: .bold))
+                    Text("CALORIES")
+                        .font(.system(size: 10, weight: .black))
                         .foregroundColor(.secondary)
                 }
                 .frame(maxWidth: .infinity)
-                .padding(.vertical, 10)
-                .background(Color(uiColor: .tertiarySystemGroupedBackground))
-                .cornerRadius(12)
+                .padding(.vertical, 12)
+                .background(Color.pink.opacity(0.08))
+                .cornerRadius(14)
             }
 
             // Controls: Pause/Resume, End, Discard
@@ -313,8 +418,8 @@ public struct DashboardView: View {
                     .foregroundColor(syncManager.isWatchMatchPaused ? .green : .yellow)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
-                    .background((syncManager.isWatchMatchPaused ? Color.green : Color.yellow).opacity(0.15))
-                    .cornerRadius(12)
+                    .background((syncManager.isWatchMatchPaused ? Color.green : Color.yellow).opacity(0.18))
+                    .cornerRadius(14)
                 }
                 .buttonStyle(.plain)
 
@@ -324,14 +429,14 @@ public struct DashboardView: View {
                 } label: {
                     HStack(spacing: 6) {
                         Image(systemName: "flag.checkered")
-                        Text("End Match")
+                        Text("End Session")
                     }
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 12)
                     .background(Color.red.opacity(0.85))
-                    .cornerRadius(12)
+                    .cornerRadius(14)
                 }
                 .buttonStyle(.plain)
             }
@@ -342,21 +447,29 @@ public struct DashboardView: View {
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "trash")
-                    Text("Discard this match without saving")
+                    Text("Discard this session without saving")
                 }
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 12, weight: .medium))
                 .foregroundColor(.secondary)
             }
             .buttonStyle(.plain)
-            .padding(.top, -4)
+            .padding(.top, -2)
         }
-        .padding(16)
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(18)
+        .padding(18)
+        .background(.ultraThinMaterial)
         .overlay(
-            RoundedRectangle(cornerRadius: 18)
-                .stroke((syncManager.isWatchMatchPaused ? Color.yellow : Color.green).opacity(0.3), lineWidth: 1.5)
+            RoundedRectangle(cornerRadius: 22)
+                .stroke(
+                    LinearGradient(
+                        colors: [(syncManager.isWatchMatchPaused ? Color.yellow : Color.green).opacity(0.5), .white.opacity(0.15)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1.5
+                )
         )
+        .clipShape(RoundedRectangle(cornerRadius: 22))
+        .shadow(color: Color.black.opacity(0.06), radius: 14, x: 0, y: 5)
     }
 
     private func formatLiveDuration(_ time: TimeInterval) -> String {
@@ -365,7 +478,7 @@ public struct DashboardView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 
-    // MARK: - Coach Insight Card
+    // MARK: - Coach Insight Card (Liquid Glass)
     private var coachInsightCard: some View {
         let totalSwings = matches.reduce(0) { $0 + $1.totalSwings }
         let totalFh = matches.reduce(0) { $0 + $1.forehandCount }
@@ -376,20 +489,20 @@ public struct DashboardView: View {
         return VStack(alignment: .leading, spacing: 10) {
             HStack(alignment: .top, spacing: 12) {
                 Text("💡")
-                    .font(.system(size: 24))
+                    .font(.system(size: 22))
                     .padding(8)
                     .background(Color.emeraldGreen.opacity(0.15))
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        Text("COACH RECOMMENDATION")
-                            .font(.system(size: 10, weight: .bold))
+                        Text("GEMINI COACH INSIGHT")
+                            .font(.system(size: 10, weight: .black))
                             .foregroundColor(.emeraldGreen)
                             .tracking(1.0)
                         Spacer()
                         if !matches.isEmpty {
-                            Text("Based on \(matches.count) matches")
+                            Text("From \(matches.count) games")
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                         }
@@ -403,23 +516,33 @@ public struct DashboardView: View {
             }
         }
         .padding(16)
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(18)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.35), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
         .padding(.horizontal)
-        .shadow(color: Color.black.opacity(0.03), radius: 6, x: 0, y: 2)
     }
 
     @ViewBuilder
     private func coachAdviceContent(fhRatio: Int, totalDinks: Int) -> some View {
         if matches.isEmpty {
-            Text("Start your first match on Apple Watch. SwingFit will track your strokes and power to provide personalized coaching tips.")
+            Text("Start your first rally or match on Apple Watch. SwingFit will track your stroke mechanics and intensity to provide personalized AI coaching.")
         } else if fhRatio > 65 {
-            Text("You are heavily favoring your Forehand (\(fhRatio)%). Opponents will notice this pattern. Practice positioning earlier to take more Backhand drives and balance your court coverage.")
+            Text("You are favoring your Forehand heavily (\(fhRatio)%). Skilled opponents will attack your backhand corner. Position earlier to take more Backhand drives.")
         } else if totalDinks > 15 {
-            Text("Excellent kitchen soft game control! You hit \(totalDinks) dinks, forcing opponent resets. Keep maintaining steady wrist stability at the net.")
+            Text("Excellent kitchen dinking control! You hit \(totalDinks) touch dinks, forcing defensive resets. Keep wrist relaxed and stable.")
         } else {
             let bhRatio = 100 - fhRatio
-            Text("Solid shot selection! Your Forehand (\(fhRatio)%) and Backhand (\(bhRatio)%) balance is well-rounded. Continue focusing on consistent follow-through.")
+            Text("Balanced court coverage! Forehand (\(fhRatio)%) and Backhand (\(bhRatio)%) ratio shows high consistency across defensive and attacking phases.")
         }
     }
 
@@ -435,57 +558,51 @@ public struct DashboardView: View {
         let peakIntensity = matches.compactMap { $0.peakIntensity }.max() ?? 0.0
 
         return LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
-            // Total Swings
             summaryTile(
-                title: "TOTAL SWINGS",
+                title: "TOTAL STROKES",
                 value: "\(totalSwings)",
-                subtext: "\(matches.count) matches total",
+                subtext: "\(matches.count) sessions total",
                 icon: "waveform.path.ecg",
                 color: .blue
             )
 
-            // Shot Ratio
             summaryTile(
-                title: "F / B RATIO",
+                title: "F / B BALANCE",
                 value: "\(fhPercent) / \(bhPercent)%",
-                subtext: fhPercent > 55 ? "Forehand heavy" : "Balanced spread",
-                icon: "arrow.left.and.right",
+                subtext: "Forehand vs Backhand",
+                icon: "arrow.left.and.right.circle",
                 color: .emeraldGreen
             )
 
-            // Average Intensity
             summaryTile(
                 title: "AVG INTENSITY",
                 value: String(format: "%.1f G", overallAvgIntensity),
-                subtext: "Peak: \(String(format: "%.1f G", peakIntensity))",
-                icon: "bolt.fill",
+                subtext: "Racket acceleration",
+                icon: "speedometer",
                 color: .orange
             )
 
-            // Total Calories & Time
-            let totalCalories = Int(matches.reduce(0) { $0 + $1.activeCalories })
-            let totalTime = matches.reduce(0) { $0 + $1.duration }
             summaryTile(
-                title: "WORKOUT TIME",
-                value: formatDuration(totalTime),
-                subtext: "\(totalCalories) cal burned",
+                title: "PEAK POWER",
+                value: String(format: "%.1f G", peakIntensity),
+                subtext: "Maximum recorded",
                 icon: "flame.fill",
-                color: .pink
+                color: .red
             )
         }
         .padding(.horizontal)
     }
 
-    private func summaryTile(title: LocalizedStringKey, value: String, subtext: LocalizedStringKey, icon: String, color: Color) -> some View {
-        VStack(alignment: .leading, spacing: 4) {
+    private func summaryTile(title: String, value: String, subtext: String, icon: String, color: Color) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
             HStack {
                 Text(title)
-                    .font(.system(size: 9, weight: .bold))
+                    .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.secondary)
-                    .tracking(1.0)
+                    .tracking(0.8)
                 Spacer()
                 Image(systemName: icon)
-                    .font(.system(size: 12))
+                    .font(.system(size: 13, weight: .semibold))
                     .foregroundColor(color)
             }
 
@@ -498,63 +615,128 @@ public struct DashboardView: View {
                 .foregroundColor(.secondary)
         }
         .padding(14)
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.03), radius: 4, x: 0, y: 2)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 18)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 18))
     }
 
-    // MARK: - Sensor Calibration Card
+    // MARK: - Watch Sensor Calibration
     private var calibrationCard: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            HStack {
-                Label("Watch Sensor Calibration", systemImage: "applewatch.radiowaves.left.and.right")
-                    .font(.caption.bold())
-                    .foregroundColor(.primary)
-                Spacer()
-                Text(syncManager.isReachable ? "Connected" : "Not connected")
-                    .font(.caption2)
-                    .foregroundColor(syncManager.isReachable ? .green : .secondary)
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 8) {
+                Image(systemName: "applewatch")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(.emeraldGreen)
+                Text("APPLE WATCH SENSOR CONFIG")
+                    .font(.system(size: 11, weight: .black))
+                    .foregroundColor(.emeraldGreen)
+                    .tracking(1.0)
             }
 
-            HStack(spacing: 12) {
-                // Handedness Picker
-                Picker("Wrist", selection: $hittingHand) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Hitting Wrist")
+                    .font(.subheadline.bold())
+                    .foregroundColor(.primary)
+
+                Picker("Hitting Hand", selection: $hittingHand) {
                     Text("Right Hand").tag("right")
                     Text("Left Hand").tag("left")
                 }
                 .pickerStyle(.segmented)
-
-                // Sensitivity
-                Picker("Sensitivity", selection: $swingSensitivity) {
-                    Text("Low").tag("low")
-                    Text("Normal").tag("medium")
-                    Text("High").tag("high")
+                .onChange(of: hittingHand) { _, newHand in
+                    syncManager.setHittingHand(newHand)
                 }
-                .pickerStyle(.menu)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(Color(uiColor: .tertiarySystemGroupedBackground))
-                .cornerRadius(8)
+            }
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Swing Sensitivity")
+                    .font(.subheadline.bold())
+                    .foregroundColor(.primary)
+
+                Picker("Sensitivity", selection: $swingSensitivity) {
+                    Text("Low (Pro)").tag("low")
+                    Text("Medium").tag("medium")
+                    Text("High (Casual)").tag("high")
+                }
+                .pickerStyle(.segmented)
             }
         }
-        .padding(14)
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(16)
-        .padding(.horizontal)
+        .padding(16)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 
+    private var deviceStatusCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("DEVICE CONNECTION")
+                .font(.system(size: 11, weight: .black))
+                .foregroundColor(.secondary)
+                .tracking(1.0)
+
+            HStack {
+                Image(systemName: "applewatch.radiowaves.left.and.right")
+                    .font(.system(size: 20))
+                    .foregroundColor(syncManager.isReachable ? .green : .orange)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Apple Watch Sync")
+                        .font(.headline)
+                    Text(syncManager.isReachable ? "Connected & Ready for live streaming" : "Awaiting Watch foreground launch")
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                Spacer()
+            }
+        }
+        .padding(16)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.3), .white.opacity(0.05)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+
+    // MARK: - Empty State View
     private var emptyStateView: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 12) {
             Image(systemName: "figure.pickleball")
-                .font(.system(size: 52))
+                .font(.system(size: 48))
                 .foregroundColor(.emeraldGreen)
                 .padding(.top, 30)
 
-            Text("No Matches Tracked Yet")
+            Text("No Games Recorded Yet")
                 .font(.headline)
                 .foregroundColor(.primary)
 
-            Text("Open SwingFit on your Apple Watch and tap 'Start Match'. Your swings, intensity, and shot distribution will sync here automatically.")
+            Text("Open SwingFit on your Apple Watch and tap 'Start Match' or 'Start Rally'. Your swings, intensity, and shot distribution will appear here with AI insights.")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -575,7 +757,7 @@ public struct DashboardView: View {
     }
 }
 
-// MARK: - Match Analysis Card View
+// MARK: - Match Analysis Card View (Liquid Glass Style)
 public struct MatchAnalysisCardView: View {
     @ObservedObject private var aiService = AISummaryService.shared
     
@@ -591,21 +773,21 @@ public struct MatchAnalysisCardView: View {
         VStack(spacing: 0) {
             Button(action: onTap) {
                 HStack(spacing: 14) {
-                    // Match Number Badge
+                    // Match Number Badge with sport glow
                     VStack {
                         Text("M\(matchNumber)")
                             .font(.system(size: 15, weight: .heavy, design: .rounded))
-                            .foregroundColor(.emeraldGreen)
+                            .foregroundColor(match.sport == .badminton ? .purple : .emeraldGreen)
                     }
                     .frame(width: 44, height: 44)
-                    .background(Color.emeraldGreen.opacity(0.12))
+                    .background((match.sport == .badminton ? Color.purple : Color.emeraldGreen).opacity(0.15))
                     .clipShape(Circle())
 
                     // Swings & Date
                     VStack(alignment: .leading, spacing: 3) {
                         HStack(spacing: 6) {
                             Text("\(match.totalSwings) Swings")
-                                .font(.system(size: 18, weight: .bold, design: .rounded))
+                                .font(.system(size: 17, weight: .bold, design: .rounded))
                                 .foregroundColor(.primary)
 
                             if match.averageIntensity > 0 {
@@ -616,6 +798,16 @@ public struct MatchAnalysisCardView: View {
                                     .background(Color.orange.opacity(0.15))
                                     .foregroundColor(.orange)
                                     .cornerRadius(6)
+                            }
+
+                            if match.sport == .badminton {
+                                Text("Badminton")
+                                    .font(.system(size: 9, weight: .black))
+                                    .padding(.horizontal, 4)
+                                    .padding(.vertical, 2)
+                                    .background(Color.purple.opacity(0.2))
+                                    .foregroundColor(.purple)
+                                    .cornerRadius(4)
                             }
                         }
 
@@ -678,123 +870,100 @@ public struct MatchAnalysisCardView: View {
                     if let swings = match.swings, !swings.isEmpty {
                         Divider()
 
-                        Text("SWING INTENSITY SAMPLES")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.secondary)
-                            .tracking(1.0)
-
-                        HStack(alignment: .bottom, spacing: 3) {
-                            ForEach(Array(swings.prefix(28).enumerated()), id: \.offset) { _, swing in
-                                RoundedRectangle(cornerRadius: 2)
-                                    .fill(colorForSwing(swing.swingType))
-                                    .frame(width: 6, height: max(6, CGFloat(swing.peakAcceleration * 8)))
-                            }
-                        }
-                        .frame(height: 48, alignment: .bottom)
-                        .padding(.vertical, 4)
-                    }
-
-                    // Heart Rate Info
-                    if match.averageHeartRate > 0 {
                         HStack {
-                            Label("Average Heart Rate", systemImage: "heart.fill")
-                                .font(.caption)
-                                .foregroundColor(.red)
-
+                            Text("SWING INTENSITY TIMELINE")
+                                .font(.system(size: 10, weight: .bold))
+                                .foregroundColor(.secondary)
+                                .tracking(1.0)
                             Spacer()
-
-                            Text("\(Int(match.averageHeartRate)) bpm")
-                                .font(.caption.bold().monospaced())
-                                .foregroundColor(.primary)
-                        }
-                    }
-                    
-                    // AI Summary
-                    Divider()
-                    
-                    HStack {
-                        Text("COACH SUMMARY")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(.secondary)
-                            .tracking(1.0)
-                        
-                        Spacer()
-                        
-                        if aiService.generatingMatchIds.contains(match.id) {
-                            ProgressView()
-                                .scaleEffect(0.6)
-                        } else {
-                            Button {
-                                aiService.generateSummary(for: match, force: true)
-                            } label: {
-                                Image(systemName: "arrow.clockwise")
-                                    .font(.system(size: 11, weight: .semibold))
-                                    .foregroundColor(.emeraldGreen)
-                            }
-                            .buttonStyle(.plain)
-                        }
-                    }
-                    
-                    if aiService.generatingMatchIds.contains(match.id) {
-                        HStack(spacing: 8) {
-                            ProgressView()
-                                .scaleEffect(0.7)
-                            Text("Generating summary...")
-                                .font(.caption)
+                            Text("\(swings.count) recorded hits")
+                                .font(.caption2)
                                 .foregroundColor(.secondary)
                         }
-                        .padding(.vertical, 4)
-                    } else if let summary = match.aiSummary {
-                        Text(summary)
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
-                            .lineSpacing(2)
-                            .fixedSize(horizontal: false, vertical: true)
-                    } else if match.isComplete {
-                        Button {
-                            aiService.generateSummary(for: match, force: true)
-                        } label: {
-                            Label("Generate Coach Summary", systemImage: "sparkles")
-                                .font(.caption.bold())
-                                .foregroundColor(.emeraldGreen)
+
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(alignment: .bottom, spacing: 5) {
+                                ForEach(Array(swings.prefix(40).enumerated()), id: \.offset) { _, swing in
+                                    VStack(spacing: 2) {
+                                        RoundedRectangle(cornerRadius: 3)
+                                            .fill(colorForSwing(swing.swingType))
+                                            .frame(width: 8, height: max(6, CGFloat(swing.peakAcceleration) * 4))
+
+                                        Text(String(format: "%.0f", swing.peakAcceleration))
+                                            .font(.system(size: 7, design: .monospaced))
+                                            .foregroundColor(.secondary)
+                                    }
+                                }
+                            }
+                            .frame(height: 70)
+                            .padding(.vertical, 4)
                         }
-                        .buttonStyle(.plain)
                     }
 
-                    // Delete Match Button
+                    // AI Insights Button & Response
                     Divider()
-
-                    Button(role: .destructive) {
-                        showDeleteConfirmation = true
-                    } label: {
-                        HStack(spacing: 6) {
-                            Image(systemName: "trash")
-                            Text("Delete Match")
+                    
+                    VStack(alignment: .leading, spacing: 8) {
+                        HStack {
+                            Text("GEMINI AI ANALYSIS")
+                                .font(.system(size: 10, weight: .black))
+                                .foregroundColor(.emeraldGreen)
+                                .tracking(1.0)
+                            Spacer()
+                            if aiService.isGenerating {
+                                ProgressView()
+                                    .scaleEffect(0.7)
+                            }
                         }
-                        .font(.subheadline.bold())
-                        .foregroundColor(.red)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 8)
-                        .background(Color.red.opacity(0.1))
-                        .cornerRadius(10)
+
+                        if let summary = match.aiSummary, !summary.isEmpty {
+                            Text(summary)
+                                .font(.subheadline)
+                                .foregroundColor(.primary)
+                                .padding(12)
+                                .background(Color.emeraldGreen.opacity(0.1))
+                                .cornerRadius(12)
+                        } else {
+                            Button {
+                                Task {
+                                    await aiService.generateSummary(for: match)
+                                }
+                            } label: {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "sparkles")
+                                    Text("Analyze with Gemini AI Coach")
+                                }
+                                .font(.subheadline.bold())
+                                .foregroundColor(.emeraldGreen)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
+                                .background(Color.emeraldGreen.opacity(0.15))
+                                .cornerRadius(12)
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(aiService.isGenerating)
+                        }
                     }
-                    .buttonStyle(.plain)
-                    .padding(.top, 4)
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 16)
-                .onAppear {
-                    let currentLang = AISummaryService.currentLanguageCode
-                    if match.isComplete && (match.aiSummary == nil || match.aiSummaryLanguage != currentLang) {
-                        aiService.generateSummary(for: match, force: true)
-                    }
-                }
             }
         }
-        .background(Color(uiColor: .secondarySystemGroupedBackground))
-        .cornerRadius(18)
-        .shadow(color: Color.black.opacity(0.03), radius: 6, x: 0, y: 2)
-        .confirmationDialog("Delete Match?", isPresented: $showDeleteConfirmation) {
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(
+                    LinearGradient(
+                        colors: [.white.opacity(0.35), .white.opacity(0.08)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .shadow(color: Color.black.opacity(0.04), radius: 8, x: 0, y: 3)
+        .confirmationDialog("Delete Match #\(matchNumber)?", isPresented: $showDeleteConfirmation, titleVisibility: .visible) {
             Button("Delete Match", role: .destructive) {
                 onDelete?()
             }
@@ -866,4 +1035,3 @@ public struct MatchAnalysisCardView: View {
 extension Color {
     static let emeraldGreen = Color(red: 0.1, green: 0.78, blue: 0.45)
 }
-
