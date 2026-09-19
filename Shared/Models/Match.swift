@@ -14,6 +14,12 @@ public final class Match {
     public var isComplete: Bool = false
     public var aiSummary: String? = nil
     public var aiSummaryLanguage: String? = nil
+    public var sportRaw: String = SportType.pickleball.rawValue
+
+    public var sport: SportType {
+        get { SportType(rawValue: sportRaw) ?? .pickleball }
+        set { sportRaw = newValue.rawValue }
+    }
 
     @Relationship(deleteRule: .cascade, inverse: \Swing.match)
     public var swings: [Swing]? = []
@@ -47,6 +53,31 @@ public final class Match {
     public var serveCount: Int {
         guard let swings = swings else { return 0 }
         return swings.filter { $0.swingType == .serve }.count
+    }
+
+    public var clearCount: Int {
+        guard let swings = swings else { return 0 }
+        return swings.filter { $0.swingType == .clear }.count
+    }
+
+    public var dropShotCount: Int {
+        guard let swings = swings else { return 0 }
+        return swings.filter { $0.swingType == .dropShot }.count
+    }
+
+    public var driveCount: Int {
+        guard let swings = swings else { return 0 }
+        return swings.filter { $0.swingType == .drive }.count
+    }
+
+    public var netShotCount: Int {
+        guard let swings = swings else { return 0 }
+        return swings.filter { $0.swingType == .netShot }.count
+    }
+
+    public var liftCount: Int {
+        guard let swings = swings else { return 0 }
+        return swings.filter { $0.swingType == .lift }.count
     }
 
     public var totalSwings: Int {

@@ -7,6 +7,12 @@ public enum SwingType: String, Codable, CaseIterable {
     case dink = "Dink"
     case smash = "Overhead Smash"
     case serve = "Serve"
+    // Badminton-specific strokes
+    case clear = "Clear"
+    case dropShot = "Drop Shot"
+    case drive = "Drive"
+    case netShot = "Net Shot"
+    case lift = "Lift"
     case unknown = "Unknown"
 }
 

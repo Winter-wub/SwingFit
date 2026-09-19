@@ -22,6 +22,8 @@
     <string>1</string>
     <key>OPENROUTER_API_KEY</key>
     <string>$(OPENROUTER_API_KEY)</string>
+    <key>GEMINI_API_KEY</key>
+    <string>$(GEMINI_API_KEY)</string>
     <key>NSHealthShareUsageDescription</key>
     <string>SwingFit reads your heart rate and energy burned during pickleball matches.</string>
     <key>NSHealthUpdateUsageDescription</key>

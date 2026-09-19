@@ -22,6 +22,7 @@ public final class MotionManager: ObservableObject {
     @Published public var lastAcceleration: Double = 0.0
     @Published public var hittingHand: String = UserDefaults.standard.string(forKey: "hittingHand") ?? "right"
     @Published public var sensitivity: String = UserDefaults.standard.string(forKey: "swingSensitivity") ?? "medium"
+    @Published public var sport: SportType = .pickleball
     
     public var onSwingDetected: ((SwingType, Double) -> Void)?
 
@@ -107,16 +108,36 @@ public final class MotionManager: ObservableObject {
             let rotationZ = (hittingHand.lowercased() == "left") ? -sample.gyroZ : sample.gyroZ
 
             let detectedType: SwingType
-            if totalAcceleration > 4.2 {
-                detectedType = .smash
-            } else if totalAcceleration < 2.0 && abs(rotationZ) < 1.0 {
-                detectedType = .dink
-            } else if rotationZ > 1.2 {
-                detectedType = .forehand
-            } else if rotationZ < -1.2 {
-                detectedType = .backhand
+            if sport == .badminton {
+                if totalAcceleration > 5.5 {
+                    detectedType = .smash
+                } else if totalAcceleration > 3.8 {
+                    detectedType = .clear
+                } else if totalAcceleration < 2.0 && abs(rotationZ) < 0.9 {
+                    detectedType = .netShot
+                } else if totalAcceleration < 2.5 && abs(sample.accelY) > 1.2 {
+                    detectedType = .dropShot
+                } else if abs(rotationZ) > 1.8 {
+                    detectedType = .drive
+                } else if rotationZ > 1.0 {
+                    detectedType = .forehand
+                } else if rotationZ < -1.0 {
+                    detectedType = .backhand
+                } else {
+                    detectedType = .serve
+                }
             } else {
-                detectedType = .serve
+                if totalAcceleration > 4.2 {
+                    detectedType = .smash
+                } else if totalAcceleration < 2.0 && abs(rotationZ) < 1.0 {
+                    detectedType = .dink
+                } else if rotationZ > 1.2 {
+                    detectedType = .forehand
+                } else if rotationZ < -1.2 {
+                    detectedType = .backhand
+                } else {
+                    detectedType = .serve
+                }
             }
 
             detectedSwingsCount += 1
