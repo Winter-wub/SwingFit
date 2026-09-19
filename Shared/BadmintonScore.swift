@@ -38,12 +38,27 @@ public struct BadmintonScoreState: Codable, Equatable {
     }
 }
 
+public typealias BadmintonMatch = BadmintonScoreEngine
+
 public final class BadmintonScoreEngine: ObservableObject {
     @Published public var state: BadmintonScoreState
     private var history: [BadmintonScoreState] = []
 
     public init(initialState: BadmintonScoreState = BadmintonScoreState()) {
         self.state = initialState
+    }
+
+    public var myScore: Int { state.myScore }
+    public var opponentScore: Int { state.opponentScore }
+    public var servingTeam: Team { state.servingTeam }
+    public var scoreString: String { calloutString }
+
+    public func scorePoint(side: Team) {
+        pointScored(by: side)
+    }
+
+    public func resetMatch() {
+        reset()
     }
 
     public var calloutString: String {

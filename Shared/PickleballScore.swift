@@ -4,6 +4,8 @@ import Combine
 public enum Team: String, Codable {
     case us = "US"
     case opponent = "THEM"
+
+    public static var them: Team { .opponent }
 }
 
 public struct ScoreState: Codable, Equatable {
@@ -20,12 +22,27 @@ public struct ScoreState: Codable, Equatable {
     }
 }
 
+public typealias PickleballMatch = PickleballScoreEngine
+
 public final class PickleballScoreEngine: ObservableObject {
     @Published public var state: ScoreState
     private var history: [ScoreState] = []
 
     public init(initialState: ScoreState = ScoreState()) {
         self.state = initialState
+    }
+
+    public var myScore: Int { state.myScore }
+    public var opponentScore: Int { state.opponentScore }
+    public var servingTeam: Team { state.servingTeam }
+    public var serverNumber: Int { state.serverNumber }
+
+    public func scorePoint(scoringTeam: Team) {
+        pointScored(by: scoringTeam)
+    }
+
+    public func resetGame() {
+        reset()
     }
 
     public var calloutString: String {

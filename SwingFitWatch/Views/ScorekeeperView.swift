@@ -20,8 +20,8 @@ public struct ScorekeeperView: View {
     @State private var selectedGameMode: GameMode = .rally
 
     // Scoring engines
-    @StateObject private var pickleballEngine = PickleballMatch()
-    @StateObject private var badmintonEngine = BadmintonMatch()
+    @StateObject private var pickleballEngine = PickleballScoreEngine()
+    @StateObject private var badmintonEngine = BadmintonScoreEngine()
 
     // Session and Match tracking
     @State private var currentSession: WorkoutSession?
