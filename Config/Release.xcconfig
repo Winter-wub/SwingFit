@@ -1,0 +1,2 @@
+// Never include a local OpenRouter credential in release builds.
+OPENROUTER_API_KEY =

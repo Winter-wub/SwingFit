@@ -1,0 +1,22 @@
+# Xcode
+DerivedData/
+build/
+*.xcuserdata/
+xcuserdata/
+*.moved-aside-identifiers
+*.pers
+*.xcuserstate
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Local secrets
+.env
+.env.*
+!.env.example
+Config/Secrets.xcconfig
+
+# Logs
+*.log

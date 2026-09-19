@@ -1,0 +1,596 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "SwingFit Coach" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โค้ช SwingFit"
+          }
+        }
+      }
+    },
+    "Match Analysis" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "วิเคราะห์การแข่งขัน"
+          }
+        }
+      }
+    },
+    "%lld Recorded" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกแล้ว %lld"
+          }
+        }
+      }
+    },
+    "COACH RECOMMENDATION" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คำแนะนำจากโค้ช"
+          }
+        }
+      }
+    },
+    "Based on %lld matches" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จากข้อมูล %lld แมตช์"
+          }
+        }
+      }
+    },
+    "Start your first match on Apple Watch. SwingFit will track your strokes and power to provide personalized coaching tips." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เริ่มแมตช์แรกบน Apple Watch ของคุณ SwingFit จะติดตามการตีและแรงของคุณเพื่อให้คำแนะนำส่วนตัว"
+          }
+        }
+      }
+    },
+    "TOTAL SWINGS" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การตีทั้งหมด"
+          }
+        }
+      }
+    },
+    "%lld matches total" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ทั้งหมด %lld แมตช์"
+          }
+        }
+      }
+    },
+    "F / B RATIO" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สัดส่วน F / B"
+          }
+        }
+      }
+    },
+    "Forehand heavy" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เน้นโฟร์แฮนด์"
+          }
+        }
+      }
+    },
+    "Balanced spread" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กระจายอย่างสมดุล"
+          }
+        }
+      }
+    },
+    "AVG INTENSITY" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ความแรงเฉลี่ย"
+          }
+        }
+      }
+    },
+    "WORKOUT TIME" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เวลาออกกำลังกาย"
+          }
+        }
+      }
+    },
+    "%lld cal burned" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เผาผลาญ %lld แคลอรี"
+          }
+        }
+      }
+    },
+    "Watch Sensor Calibration" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การตั้งค่าเซ็นเซอร์ Watch"
+          }
+        }
+      }
+    },
+    "Connected" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เชื่อมต่อแล้ว"
+          }
+        }
+      }
+    },
+    "Not connected" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่ได้เชื่อมต่อ"
+          }
+        }
+      }
+    },
+    "Wrist" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ข้อมือ"
+          }
+        }
+      }
+    },
+    "Right Hand" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มือขวา"
+          }
+        }
+      }
+    },
+    "Left Hand" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มือซ้าย"
+          }
+        }
+      }
+    },
+    "Sensitivity" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ความไว"
+          }
+        }
+      }
+    },
+    "Low" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ต่ำ"
+          }
+        }
+      }
+    },
+    "Normal" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ปกติ"
+          }
+        }
+      }
+    },
+    "High" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สูง"
+          }
+        }
+      }
+    },
+    "No Matches Tracked Yet" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยังไม่มีแมตช์ที่ถูกบันทึก"
+          }
+        }
+      }
+    },
+    "Open SwingFit on your Apple Watch and tap 'Start Match'. Your swings, intensity, and shot distribution will sync here automatically." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เปิด SwingFit บน Apple Watch และกด 'Start Match' การตี ความแรง และสัดส่วนช็อตจะซิงค์ที่นี่อัตโนมัติ"
+          }
+        }
+      }
+    },
+    "%lld Swings" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตี %lld ครั้ง"
+          }
+        }
+      }
+    },
+    "SHOT DISTRIBUTION" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สัดส่วนรูปแบบการตี"
+          }
+        }
+      }
+    },
+    "Forehand Drive" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โฟร์แฮนด์ไดรฟ์"
+          }
+        }
+      }
+    },
+    "Backhand Drive/Slice" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แบ็คแฮนด์ไดรฟ์/สไลซ์"
+          }
+        }
+      }
+    },
+    "Dink (Kitchen)" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ดิงค์ (คิทเช่น)"
+          }
+        }
+      }
+    },
+    "Overhead Smash" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "โอเวอร์เฮดสแมช"
+          }
+        }
+      }
+    },
+    "Serve" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เสิร์ฟ"
+          }
+        }
+      }
+    },
+    "SWING INTENSITY SAMPLES" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตัวอย่างความแรงของการตี"
+          }
+        }
+      }
+    },
+    "Average Heart Rate" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "อัตราการเต้นของหัวใจเฉลี่ย"
+          }
+        }
+      }
+    },
+    "COACH SUMMARY" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สรุปจากโค้ช"
+          }
+        }
+      }
+    },
+    "Generating summary..." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังสร้างข้อสรุป..."
+          }
+        }
+      }
+    },
+    "SwingFit Tracker" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ตัวติดตาม SwingFit"
+          }
+        }
+      }
+    },
+    "Start Match" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เริ่มแมตช์"
+          }
+        }
+      }
+    },
+    "Finish Match?" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบแมตช์?"
+          }
+        }
+      }
+    },
+    "Save & Start Next Match" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึก & เริ่มแมตช์ถัดไป"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ยกเลิก"
+          }
+        }
+      }
+    },
+    "End All Play?" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบการเล่นทั้งหมด?"
+          }
+        }
+      }
+    },
+    "End & Save to Health" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบ & บันทึกลง Health"
+          }
+        }
+      }
+    },
+    "Match %lld Controls" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ควบคุมแมตช์ %lld"
+          }
+        }
+      }
+    },
+    "Resume" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เล่นต่อ"
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดพัก"
+          }
+        }
+      }
+    },
+    "Finish & Next Match" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบ & ถัดไป"
+          }
+        }
+      }
+    },
+    "End Workout" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบการออกกำลังกาย"
+          }
+        }
+      }
+    },
+    "Hand:" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "มือ:"
+          }
+        }
+      }
+    },
+    "PAUSED" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "หยุดพักอยู่"
+          }
+        }
+      }
+    },
+    "SWINGS" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การตี"
+          }
+        }
+      }
+    },
+    "Ready" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "พร้อม"
+          }
+        }
+      }
+    },
+    "End Match" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "จบแมตช์"
+          }
+        }
+      }
+    },
+    "You are heavily favoring your Forehand (%lld%%). Opponents will notice this pattern. Practice positioning earlier to take more Backhand drives and balance your court coverage." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "คุณเน้นเล่นโฟร์แฮนด์มากเกินไป (%lld%%) คู่ต่อสู้อาจจับทางได้ ควรฝึกขยับตำแหน่งให้เร็วขึ้นเพื่อเพิ่มการตีแบ็คแฮนด์และสร้างสมดุลในสนาม"
+          }
+        }
+      }
+    },
+    "Excellent kitchen soft game control! You hit %lld dinks, forcing opponent resets. Keep maintaining steady wrist stability at the net." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การคุมเกมหน้าเน็ตยอดเยี่ยมมาก! คุณดิงค์ไปถึง %lld ครั้ง บีบให้คู่ต่อสู้ต้องตั้งรับ ควรรักษาความนิ่งของข้อมือหน้าเน็ตต่อไป"
+          }
+        }
+      }
+    },
+    "Solid shot selection! Your Forehand (%lld%%) and Backhand (%lld%%) balance is well-rounded. Continue focusing on consistent follow-through." : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "การเลือกช็อตตีทำได้ดีมาก! สัดส่วนโฟร์แฮนด์ (%lld%%) และแบ็คแฮนด์ (%lld%%) สมดุลเป็นอย่างดี เน้นการส่งแรงและฟอลโลว์ทรูให้สม่ำเสมอต่อไป"
+          }
+        }
+      }
+    },
+    "Peak: %@" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สูงสุด: %@"
+          }
+        }
+      }
+    },
+    "Generate Coach Summary" : {
+      "localizations" : {
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "สร้างสรุปจากโค้ช"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

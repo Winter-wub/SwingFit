@@ -1,0 +1,674 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0041FCA34DFE8DEF2E492749 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
+		14744D63B46B0FDF30FD438F /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
+		161C725317DB5F59EADA8B95 /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
+		1A6E33253390C46591E567F7 /* ScorekeeperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F1CDABB7280286BB035C9C /* ScorekeeperView.swift */; };
+		1CA4EDEE60121E8911EDFA97 /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
+		258CE53F1E66D1E0437EF577 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
+		2D6AD538CD5461F1FE400292 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A69167AB94A25A3C0485A32 /* DashboardView.swift */; };
+		3BF2A6D01D183745E52239AF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
+		45DDAFC02F579AD88EE54ED6 /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
+		55D271F8F25071C777F6FC41 /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
+		560B1EEC5D440F79D44EB3E3 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
+		574AC8A525AA80BEDED71DE2 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
+		63CDEC635B3902A86428A6FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 443453480010CD774AA110B7 /* Assets.xcassets */; };
+		66B02340D7B40381B22EA00B /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
+		678B3F04EEFF30030ED21411 /* PickleballScoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */; };
+		6B7445431AA87C7E36FE88F7 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */; };
+		727D45962A5E0AA625E64584 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73EB703CBE3218C21B9BBCDA /* Assets.xcassets */; };
+		78B2B9F12B9438B05D1FC34D /* Swing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 495F2F2BFC1C730B7EA9282A /* Swing.swift */; };
+		85FAC313DF07681D50F81FE8 /* SwingFitWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A257450A0A72AE55794892DE /* SwingFitWatchApp.swift */; };
+		89D1D24E2DDF3F7205F427C2 /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
+		8B109083BC13EAD45ECDC6D2 /* SwingFitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */; };
+		9091B425E4DFC94AA94D894E /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
+		96AFDB6E5F511D30418F828D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */; };
+		971D1A7C4F2C847AD1657BF9 /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
+		9DA6B708A30EFCD0AA329831 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
+		A51A28225A588EAFD8080FB9 /* AISummaryServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */; };
+		B0867C55CE4F3219F21E896C /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
+		B7CF68DEFA0169E961EB788D /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */; };
+		B826A973A0331306702B8A29 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB6F0927F695793BB60CD05E /* MotionManager.swift */; };
+		BA41FF55DC84BD6B82BF7BDD /* SwingFitWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5EDDA771656684B494945B5B /* SwingFitWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C19A490EE2CCA1CE2E7DBF40 /* SyncDTOs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC138289227B4616E2F438 /* SyncDTOs.swift */; };
+		D755A3842E2C5B705A8ED5D5 /* WorkoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6876D3F12FF4D71C1AD2D60A /* WorkoutManager.swift */; };
+		EAF3002AF6E51F3D78BBA2EB /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
+		EBB9453E4B478662E12DB033 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
+		FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BE1641C5E656C544FC633CC3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D75D7127CA0DDB6E3AA5095 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B37BBEEA1B856095C5A3DB9D;
+			remoteInfo = SwingFit;
+		};
+		D7F7CF4D8E1E0B6DBA0E051C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7D75D7127CA0DDB6E3AA5095 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ACFBD4FE1415DF6679FC2940;
+			remoteInfo = SwingFitWatch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4E21EE83A083D2A78710AC97 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				BA41FF55DC84BD6B82BF7BDD /* SwingFitWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		04CC138289227B4616E2F438 /* SyncDTOs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncDTOs.swift; sourceTree = "<group>"; };
+		18D05D4C0EC2C19ED682F6E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickleballScoreTests.swift; sourceTree = "<group>"; };
+		2A69167AB94A25A3C0485A32 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		443453480010CD774AA110B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		495F2F2BFC1C730B7EA9282A /* Swing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swing.swift; sourceTree = "<group>"; };
+		5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingFitApp.swift; sourceTree = "<group>"; };
+		5EDDA771656684B494945B5B /* SwingFitWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwingFitWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		60F70D4A5ABFF200E2B78E92 /* Match.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Match.swift; sourceTree = "<group>"; };
+		6876D3F12FF4D71C1AD2D60A /* WorkoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutManager.swift; sourceTree = "<group>"; };
+		72F1CDABB7280286BB035C9C /* ScorekeeperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorekeeperView.swift; sourceTree = "<group>"; };
+		73EB703CBE3218C21B9BBCDA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		801DA33C95002AA16CD9BEF5 /* SwingFitTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SwingFitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		85F256E7D76D112E4984FA2A /* SwingFitWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwingFitWatch.entitlements; sourceTree = "<group>"; };
+		8E4ED3C1175A912A1723A38D /* SwingFit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwingFit.entitlements; sourceTree = "<group>"; };
+		973DFF1CE621385E135933FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISummaryService.swift; sourceTree = "<group>"; };
+		A257450A0A72AE55794892DE /* SwingFitWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwingFitWatchApp.swift; sourceTree = "<group>"; };
+		AB6F0927F695793BB60CD05E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISummaryServiceTests.swift; sourceTree = "<group>"; };
+		CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D0F1FDE6B582A9329E15CB70 /* SwingFit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SwingFit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickleballScore.swift; sourceTree = "<group>"; };
+		D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
+		E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		1C56B52353F462DD3FC00575 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2A69167AB94A25A3C0485A32 /* DashboardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		304E6D8B00D4B074E3AAEE9E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				AB6F0927F695793BB60CD05E /* MotionManager.swift */,
+				6876D3F12FF4D71C1AD2D60A /* WorkoutManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		30824D2E871B92603F9243E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F1FDE6B582A9329E15CB70 /* SwingFit.app */,
+				801DA33C95002AA16CD9BEF5 /* SwingFitTests.xctest */,
+				5EDDA771656684B494945B5B /* SwingFitWatch.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45B338A159768B11076F7E6B /* SwingFitWatch */ = {
+			isa = PBXGroup;
+			children = (
+				443453480010CD774AA110B7 /* Assets.xcassets */,
+				18D05D4C0EC2C19ED682F6E0 /* Info.plist */,
+				85F256E7D76D112E4984FA2A /* SwingFitWatch.entitlements */,
+				A257450A0A72AE55794892DE /* SwingFitWatchApp.swift */,
+				304E6D8B00D4B074E3AAEE9E /* Managers */,
+				6D1687C3CC9180E8B810E300 /* Views */,
+			);
+			path = SwingFitWatch;
+			sourceTree = "<group>";
+		};
+		6D1687C3CC9180E8B810E300 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				72F1CDABB7280286BB035C9C /* ScorekeeperView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		855ADE1E5CB2339C4F977FA1 = {
+			isa = PBXGroup;
+			children = (
+				F4331393712E139796371D93 /* Shared */,
+				D4653FD6573598A7B7F900E7 /* SwingFit */,
+				45B338A159768B11076F7E6B /* SwingFitWatch */,
+				EDD512B1BAE527CA84C34DCF /* Tests */,
+				30824D2E871B92603F9243E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C33799A903F19BB22F246807 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				60F70D4A5ABFF200E2B78E92 /* Match.swift */,
+				495F2F2BFC1C730B7EA9282A /* Swing.swift */,
+				04CC138289227B4616E2F438 /* SyncDTOs.swift */,
+				D6686BC76B34CD4BC5B3E066 /* WorkoutSession.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D4653FD6573598A7B7F900E7 /* SwingFit */ = {
+			isa = PBXGroup;
+			children = (
+				73EB703CBE3218C21B9BBCDA /* Assets.xcassets */,
+				973DFF1CE621385E135933FC /* Info.plist */,
+				8E4ED3C1175A912A1723A38D /* SwingFit.entitlements */,
+				5A8D8FABDA0E9A09E7069933 /* SwingFitApp.swift */,
+				1C56B52353F462DD3FC00575 /* Views */,
+			);
+			path = SwingFit;
+			sourceTree = "<group>";
+		};
+		EDD512B1BAE527CA84C34DCF /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */,
+				2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		F4331393712E139796371D93 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */,
+				CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */,
+				D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */,
+				E6D7E3CC4FD5DCDB6E14F42B /* WatchSyncManager.swift */,
+				C33799A903F19BB22F246807 /* Models */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ACFBD4FE1415DF6679FC2940 /* SwingFitWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 39F03E7C8F81910AECC10C9D /* Build configuration list for PBXNativeTarget "SwingFitWatch" */;
+			buildPhases = (
+				C53D0F8BFFD10D861CD1A6A8 /* Sources */,
+				09F4E17564C7F99CB8A5AF4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwingFitWatch;
+			packageProductDependencies = (
+			);
+			productName = SwingFitWatch;
+			productReference = 5EDDA771656684B494945B5B /* SwingFitWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B37BBEEA1B856095C5A3DB9D /* SwingFit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAF2A1C7A50369CC18B028D5 /* Build configuration list for PBXNativeTarget "SwingFit" */;
+			buildPhases = (
+				85F916840879D7849BA7F7EE /* Sources */,
+				AC28B1763C19E37B883BE9D3 /* Resources */,
+				4E21EE83A083D2A78710AC97 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				06148196462DA8ECA0650964 /* PBXTargetDependency */,
+			);
+			name = SwingFit;
+			packageProductDependencies = (
+			);
+			productName = SwingFit;
+			productReference = D0F1FDE6B582A9329E15CB70 /* SwingFit.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C91706FE4F97AFC98203CC4C /* SwingFitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3F8B4CD806428A3750C4B9E5 /* Build configuration list for PBXNativeTarget "SwingFitTests" */;
+			buildPhases = (
+				DD75842B1D4A6890200FA507 /* Sources */,
+				D3DAF6B98389EA6793E6041B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				904565AD593BD6DC53B06D60 /* PBXTargetDependency */,
+			);
+			name = SwingFitTests;
+			packageProductDependencies = (
+			);
+			productName = SwingFitTests;
+			productReference = 801DA33C95002AA16CD9BEF5 /* SwingFitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7D75D7127CA0DDB6E3AA5095 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					ACFBD4FE1415DF6679FC2940 = {
+						DevelopmentTeam = QRPJ6S6PC6;
+						ProvisioningStyle = Automatic;
+					};
+					B37BBEEA1B856095C5A3DB9D = {
+						DevelopmentTeam = QRPJ6S6PC6;
+						ProvisioningStyle = Automatic;
+					};
+					C91706FE4F97AFC98203CC4C = {
+						DevelopmentTeam = QRPJ6S6PC6;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 9C6B35D070534A7A6AA6C138 /* Build configuration list for PBXProject "SwingFit" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				th,
+			);
+			mainGroup = 855ADE1E5CB2339C4F977FA1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 30824D2E871B92603F9243E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B37BBEEA1B856095C5A3DB9D /* SwingFit */,
+				ACFBD4FE1415DF6679FC2940 /* SwingFitWatch */,
+				C91706FE4F97AFC98203CC4C /* SwingFitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		09F4E17564C7F99CB8A5AF4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				63CDEC635B3902A86428A6FC /* Assets.xcassets in Resources */,
+				3BF2A6D01D183745E52239AF /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC28B1763C19E37B883BE9D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				727D45962A5E0AA625E64584 /* Assets.xcassets in Resources */,
+				B7CF68DEFA0169E961EB788D /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D3DAF6B98389EA6793E6041B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DA6B708A30EFCD0AA329831 /* Localizable.xcstrings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		85F916840879D7849BA7F7EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EBB9453E4B478662E12DB033 /* AISummaryService.swift in Sources */,
+				2D6AD538CD5461F1FE400292 /* DashboardView.swift in Sources */,
+				258CE53F1E66D1E0437EF577 /* Match.swift in Sources */,
+				971D1A7C4F2C847AD1657BF9 /* PickleballScore.swift in Sources */,
+				55D271F8F25071C777F6FC41 /* Swing.swift in Sources */,
+				8B109083BC13EAD45ECDC6D2 /* SwingFitApp.swift in Sources */,
+				B0867C55CE4F3219F21E896C /* SyncDTOs.swift in Sources */,
+				66B02340D7B40381B22EA00B /* WatchSyncManager.swift in Sources */,
+				96AFDB6E5F511D30418F828D /* WorkoutSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C53D0F8BFFD10D861CD1A6A8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				574AC8A525AA80BEDED71DE2 /* AISummaryService.swift in Sources */,
+				14744D63B46B0FDF30FD438F /* Match.swift in Sources */,
+				B826A973A0331306702B8A29 /* MotionManager.swift in Sources */,
+				FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */,
+				1A6E33253390C46591E567F7 /* ScorekeeperView.swift in Sources */,
+				78B2B9F12B9438B05D1FC34D /* Swing.swift in Sources */,
+				85FAC313DF07681D50F81FE8 /* SwingFitWatchApp.swift in Sources */,
+				45DDAFC02F579AD88EE54ED6 /* SyncDTOs.swift in Sources */,
+				6B7445431AA87C7E36FE88F7 /* WatchSyncManager.swift in Sources */,
+				D755A3842E2C5B705A8ED5D5 /* WorkoutManager.swift in Sources */,
+				9091B425E4DFC94AA94D894E /* WorkoutSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD75842B1D4A6890200FA507 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				560B1EEC5D440F79D44EB3E3 /* AISummaryService.swift in Sources */,
+				A51A28225A588EAFD8080FB9 /* AISummaryServiceTests.swift in Sources */,
+				89D1D24E2DDF3F7205F427C2 /* Match.swift in Sources */,
+				EAF3002AF6E51F3D78BBA2EB /* PickleballScore.swift in Sources */,
+				678B3F04EEFF30030ED21411 /* PickleballScoreTests.swift in Sources */,
+				1CA4EDEE60121E8911EDFA97 /* Swing.swift in Sources */,
+				C19A490EE2CCA1CE2E7DBF40 /* SyncDTOs.swift in Sources */,
+				0041FCA34DFE8DEF2E492749 /* WatchSyncManager.swift in Sources */,
+				161C725317DB5F59EADA8B95 /* WorkoutSession.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		06148196462DA8ECA0650964 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ACFBD4FE1415DF6679FC2940 /* SwingFitWatch */;
+			targetProxy = D7F7CF4D8E1E0B6DBA0E051C /* PBXContainerItemProxy */;
+		};
+		904565AD593BD6DC53B06D60 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B37BBEEA1B856095C5A3DB9D /* SwingFit */;
+			targetProxy = BE1641C5E656C544FC633CC3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		002CED1C3BAB4CBD64899218 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QRPJ6S6PC6;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		2C2DB6F5DD136DAAC1B02D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SwingFitWatch/SwingFitWatch.entitlements;
+				INFOPLIST_FILE = SwingFitWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		37FC1596DD744685531571DA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.SwingFitTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwingFit.app/SwingFit";
+			};
+			name = Release;
+		};
+		3A802DE64C9015798E708C85 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SwingFit/SwingFit.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = SwingFit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OPENROUTER_API_KEY = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		620823909B21DEDB3C913FED /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QRPJ6S6PC6;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		64A50E3AE368EFABB1207E95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.SwingFitTests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwingFit.app/SwingFit";
+			};
+			name = Debug;
+		};
+		718BF87A0AE8DABFE73762F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SwingFit/SwingFit.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = SwingFit/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OPENROUTER_API_KEY = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A49356C5A771D5560F15F96B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SwingFitWatch/SwingFitWatch.entitlements;
+				INFOPLIST_FILE = SwingFitWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.prachayawut.swingfit.app.watchkitapp;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		39F03E7C8F81910AECC10C9D /* Build configuration list for PBXNativeTarget "SwingFitWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C2DB6F5DD136DAAC1B02D3E /* Debug */,
+				A49356C5A771D5560F15F96B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3F8B4CD806428A3750C4B9E5 /* Build configuration list for PBXNativeTarget "SwingFitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64A50E3AE368EFABB1207E95 /* Debug */,
+				37FC1596DD744685531571DA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9C6B35D070534A7A6AA6C138 /* Build configuration list for PBXProject "SwingFit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				002CED1C3BAB4CBD64899218 /* Debug */,
+				620823909B21DEDB3C913FED /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		AAF2A1C7A50369CC18B028D5 /* Build configuration list for PBXNativeTarget "SwingFit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3A802DE64C9015798E708C85 /* Debug */,
+				718BF87A0AE8DABFE73762F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7D75D7127CA0DDB6E3AA5095 /* Project object */;
+}
