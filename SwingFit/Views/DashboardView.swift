@@ -227,15 +227,15 @@ public struct DashboardView: View {
             }
         }
         .padding(.horizontal)
-        .confirmationDialog("End Match?", isPresented: $showEndMatchAlert, titleVisibility: .visible) {
-            Button("End & Save Match", role: .destructive) {
+        .confirmationDialog("End Session?", isPresented: $showEndMatchAlert, titleVisibility: .visible) {
+            Button("End & Save Session", role: .destructive) {
                 withAnimation {
                     syncManager.sendCommandToWatch("endMatch")
                 }
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("This will finish the match on your Apple Watch, compute the summary, and sync data to your iPhone.")
+            Text("This will finish the session on your Apple Watch, compute the summary, and sync data to your iPhone.")
         }
         .confirmationDialog("Discard Match?", isPresented: $showDiscardMatchAlert, titleVisibility: .visible) {
             Button("Discard Match", role: .destructive) {
@@ -291,10 +291,8 @@ public struct DashboardView: View {
                 Spacer()
             }
 
-            Button {
-                withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
-                    syncManager.startMatchFromPhone()
-                }
+            NavigationLink {
+                CourtSetupView()
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: "play.fill")
@@ -441,12 +439,12 @@ public struct DashboardView: View {
                 }
                 .buttonStyle(.plain)
 
-                // End Match Button
+                // End Session Button
                 Button {
                     showEndMatchAlert = true
                 } label: {
                     HStack(spacing: 6) {
-                        Image(systemName: "flag.checkered")
+                        Image(systemName: "stop.fill")
                         Text("End Session")
                     }
                     .font(.system(size: 14, weight: .bold))

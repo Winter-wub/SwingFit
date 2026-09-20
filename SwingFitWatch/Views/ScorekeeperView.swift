@@ -36,7 +36,6 @@ public struct ScorekeeperView: View {
     @State private var hasStartedPlaying = false
     @State private var selectedTab = 1 // 0: Glass Controls, 1: Active HUD / Scoring
     @State private var showEndSessionAlert = false
-    @State private var showNewMatchAlert = false
     @State private var showDiscardAlert = false
 
     public init() {}
@@ -260,14 +259,6 @@ public struct ScorekeeperView: View {
             .tag(1)
         }
         .tabViewStyle(.page)
-        .confirmationDialog("Finish Match?", isPresented: $showNewMatchAlert) {
-            Button("Save & Next Game") {
-                saveCurrentMatch(isSessionEnding: false)
-                createNewMatch()
-                selectedTab = 1
-            }
-            Button("Cancel", role: .cancel) {}
-        }
         .confirmationDialog("End Workout?", isPresented: $showEndSessionAlert) {
             Button("End & Save Session", role: .destructive) {
                 Task {
@@ -569,6 +560,7 @@ public struct ScorekeeperView: View {
                         workoutManager.pauseWorkout()
                         motionManager.stopTracking()
                     }
+                    broadcastState(force: true)
                 } label: {
                     HStack {
                         Image(systemName: workoutManager.isPaused ? "play.circle.fill" : "pause.circle.fill")
@@ -580,25 +572,6 @@ public struct ScorekeeperView: View {
                     .padding(.vertical, 8)
                     .background(Color.yellow.opacity(0.15))
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.yellow.opacity(0.3), lineWidth: 1))
-                    .cornerRadius(12)
-                }
-                .buttonStyle(.plain)
-
-                // Finish / Next Match Button
-                Button {
-                    WKInterfaceDevice.current().play(.click)
-                    showNewMatchAlert = true
-                } label: {
-                    HStack {
-                        Image(systemName: "flag.checkered")
-                            .foregroundColor(.blue)
-                        Text("Finish & Next Match")
-                            .font(.system(size: 12, weight: .bold))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 8)
-                    .background(Color.blue.opacity(0.15))
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.blue.opacity(0.3), lineWidth: 1))
                     .cornerRadius(12)
                 }
                 .buttonStyle(.plain)
@@ -820,16 +793,25 @@ public struct ScorekeeperView: View {
 
     // MARK: - Remote Control & Sync Handlers
     private func setupRemoteCommandHandler() {
-        WatchSyncManager.shared.onCommandReceived = { command in
+        WatchSyncManager.shared.onCommandReceived = { command, dict in
             Task { @MainActor in
-                self.handleRemoteCommand(command)
+                self.handleRemoteCommand(command, dict: dict)
             }
         }
     }
 
-    private func handleRemoteCommand(_ command: String) {
+    private func handleRemoteCommand(_ command: String, dict: [String: Any] = [:]) {
         switch command {
         case "startMatch":
+            // Apply config from iPhone
+            if let sportRaw = dict["sport"] as? String,
+               let sport = SportType(rawValue: sportRaw) {
+                selectedSport = sport
+            }
+            if let hand = dict["hittingHand"] as? String {
+                motionManager.setHittingHand(hand)
+            }
+
             if !hasStartedPlaying {
                 WKInterfaceDevice.current().play(.start)
                 Task {
@@ -856,7 +838,7 @@ public struct ScorekeeperView: View {
                 motionManager.startTracking()
                 broadcastState(force: true)
             }
-        case "endMatch":
+        case "endMatch", "endSession":
             if hasStartedPlaying {
                 WKInterfaceDevice.current().play(.notification)
                 Task {

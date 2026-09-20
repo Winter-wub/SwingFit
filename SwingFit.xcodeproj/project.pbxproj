@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01BD7E8D9BA00328A16F8DCC /* CoachContextCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCB7E9D486B6BB181A93043 /* CoachContextCardView.swift */; };
 		03074907EF4055A54AF894D0 /* CoachThreadStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFCDC629CBA6A2BED392CD9A /* CoachThreadStore.swift */; };
+		031922D64CB43417D24B699E /* CourtSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A5E4FABA187EC341C45A76E /* CourtSetupView.swift */; };
 		07CE3E0E99E13C29B56FCC76 /* CoachMessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88025330A37CD670C2683F6F /* CoachMessageRow.swift */; };
 		12C9CFF112B199F63D6F48D3 /* SportType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA1CCB94CE52CF2F289B30 /* SportType.swift */; };
 		14744D63B46B0FDF30FD438F /* Match.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60F70D4A5ABFF200E2B78E92 /* Match.swift */; };
@@ -93,6 +94,7 @@
 		2A2D83E29ACF5990CF1DAB5C /* PickleballScoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickleballScoreTests.swift; sourceTree = "<group>"; };
 		2A69167AB94A25A3C0485A32 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		2EC2E6E418BF5C9F3AD87928 /* AIChatTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChatTypes.swift; sourceTree = "<group>"; };
+		3A5E4FABA187EC341C45A76E /* CourtSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourtSetupView.swift; sourceTree = "<group>"; };
 		443453480010CD774AA110B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		490AFCB269920EAF99BE624F /* CoachTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachTests.swift; sourceTree = "<group>"; };
 		495F2F2BFC1C730B7EA9282A /* Swing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swing.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				1BCB7E9D486B6BB181A93043 /* CoachContextCardView.swift */,
 				A61DF50EEF52326DCCC8601C /* CoachMatchPickerView.swift */,
 				88025330A37CD670C2683F6F /* CoachMessageRow.swift */,
+				3A5E4FABA187EC341C45A76E /* CourtSetupView.swift */,
 				2A69167AB94A25A3C0485A32 /* DashboardView.swift */,
 			);
 			path = Views;
@@ -423,6 +426,7 @@
 				3D37488D6E52C86C9EF42045 /* CoachService.swift in Sources */,
 				90542BC854A90371CFB643BB /* CoachThread.swift in Sources */,
 				03074907EF4055A54AF894D0 /* CoachThreadStore.swift in Sources */,
+				031922D64CB43417D24B699E /* CourtSetupView.swift in Sources */,
 				2D6AD538CD5461F1FE400292 /* DashboardView.swift in Sources */,
 				258CE53F1E66D1E0437EF577 /* Match.swift in Sources */,
 				971D1A7C4F2C847AD1657BF9 /* PickleballScore.swift in Sources */,

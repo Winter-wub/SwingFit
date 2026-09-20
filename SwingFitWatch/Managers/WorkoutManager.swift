@@ -74,7 +74,7 @@ public final class WorkoutManager: NSObject, ObservableObject {
     }
 
     public func pauseWorkout() {
-        guard isWorkoutRunning, !isPaused else { return }
+        guard session != nil, !isPaused else { return }
         session?.pause()
         isPaused = true
         stopTimer()
@@ -85,7 +85,7 @@ public final class WorkoutManager: NSObject, ObservableObject {
     }
 
     public func resumeWorkout() {
-        guard isWorkoutRunning, isPaused else { return }
+        guard session != nil, isPaused else { return }
         let now = Date()
         lastResumeDate = now
         session?.resume()
@@ -99,6 +99,10 @@ public final class WorkoutManager: NSObject, ObservableObject {
         }
 
         stopTimer()
+        if !isPaused, let resume = lastResumeDate {
+            accumulatedTime += Date().timeIntervalSince(resume)
+            elapsedTime = accumulatedTime
+        }
         session.end()
 
         do {
@@ -111,6 +115,7 @@ public final class WorkoutManager: NSObject, ObservableObject {
 
         let summary = (calories: activeCalories, avgHeartRate: heartRate, duration: elapsedTime)
         isWorkoutRunning = false
+        isPaused = false
         self.session = nil
         self.builder = nil
         return summary
@@ -120,9 +125,9 @@ public final class WorkoutManager: NSObject, ObservableObject {
         let start = Date()
         self.startDate = start
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            let elapsed = Date().timeIntervalSince(start)
             Task { @MainActor [weak self] in
-                self?.elapsedTime = elapsed
+                guard let self = self else { return }
+                self.elapsedTime = self.accumulatedTime + Date().timeIntervalSince(start)
             }
         }
     }
@@ -153,7 +158,8 @@ public final class WorkoutManager: NSObject, ObservableObject {
 extension WorkoutManager: HKWorkoutSessionDelegate {
     nonisolated public func workoutSession(_ workoutSession: HKWorkoutSession, didChangeTo toState: HKWorkoutSessionState, from fromState: HKWorkoutSessionState, date: Date) {
         Task { @MainActor in
-            self.isWorkoutRunning = (toState == .running)
+            self.isWorkoutRunning = (toState == .running || toState == .paused)
+            self.isPaused = (toState == .paused)
         }
     }
 

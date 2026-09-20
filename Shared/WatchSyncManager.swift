@@ -25,20 +25,24 @@ public final class WatchSyncManager: NSObject, ObservableObject {
     @Published public var liveCalories: Double = 0.0
 
     public var pendingCommand: String?
-    public var onCommandReceived: ((String) -> Void)? {
+    public var pendingCommandDict: [String: Any]?
+    public var onCommandReceived: ((String, [String: Any]) -> Void)? {
         didSet {
             if let pending = pendingCommand, let handler = onCommandReceived {
                 pendingCommand = nil
-                handler(pending)
+                let dict = pendingCommandDict ?? [:]
+                pendingCommandDict = nil
+                handler(pending, dict)
             }
         }
     }
 
-    public func triggerCommand(_ command: String) {
+    public func triggerCommand(_ command: String, dict: [String: Any] = [:]) {
         if let handler = onCommandReceived {
-            handler(command)
+            handler(command, dict)
         } else {
             pendingCommand = command
+            pendingCommandDict = dict
         }
     }
 
@@ -137,11 +141,14 @@ public final class WatchSyncManager: NSObject, ObservableObject {
 
     // MARK: - Remote Control Commands
     #if os(iOS)
-    public func startMatchFromPhone() {
+    public func startMatchFromPhone(
+        sport: SportType = .pickleball,
+        hittingHand: String = "right"
+    ) {
         if HKHealthStore.isHealthDataAvailable() {
             let healthStore = HKHealthStore()
             let config = HKWorkoutConfiguration()
-            config.activityType = .pickleball
+            config.activityType = sport == .badminton ? .badminton : .pickleball
             config.locationType = .outdoor
 
             healthStore.startWatchApp(with: config) { success, error in
@@ -153,7 +160,13 @@ public final class WatchSyncManager: NSObject, ObservableObject {
             }
         }
 
-        sendCommandToWatch("startMatch")
+        let payload: [String: Any] = [
+            "command": "startMatch",
+            "sport": sport.rawValue,
+            "hittingHand": hittingHand
+        ]
+
+        sendCommandToWatchDict(payload)
         isWatchMatchRunning = true
         isWatchMatchPaused = false
         liveSwingsCount = 0
@@ -162,11 +175,14 @@ public final class WatchSyncManager: NSObject, ObservableObject {
     #endif
 
     public func sendCommandToWatch(_ command: String) {
+        sendCommandToWatchDict(["command": command])
+    }
+
+    public func sendCommandToWatchDict(_ payload: [String: Any]) {
         guard WCSession.isSupported() else { return }
         let session = WCSession.default
         guard session.activationState == .activated else { return }
 
-        let payload: [String: Any] = ["command": command]
         if session.isReachable {
             session.sendMessage(payload, replyHandler: nil) { error in
                 print("sendCommandToWatch error: \(error.localizedDescription)")
@@ -175,13 +191,15 @@ public final class WatchSyncManager: NSObject, ObservableObject {
             session.transferUserInfo(payload)
         }
 
-        if command == "endMatch" || command == "discardMatch" {
-            isWatchMatchRunning = false
-            isWatchMatchPaused = false
-        } else if command == "pauseMatch" {
-            isWatchMatchPaused = true
-        } else if command == "resumeMatch" {
-            isWatchMatchPaused = false
+        if let command = payload["command"] as? String {
+            if command == "endMatch" || command == "discardMatch" {
+                isWatchMatchRunning = false
+                isWatchMatchPaused = false
+            } else if command == "pauseMatch" {
+                isWatchMatchPaused = true
+            } else if command == "resumeMatch" {
+                isWatchMatchPaused = false
+            }
         }
     }
 
@@ -312,7 +330,7 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         // Handle command (e.g. startMatch, endMatch, pauseMatch, resumeMatch, discardMatch)
         if let command = dict["command"] as? String {
             print("WatchSyncManager received command: \(command)")
-            triggerCommand(command)
+            triggerCommand(command, dict: dict)
             return
         }
 
