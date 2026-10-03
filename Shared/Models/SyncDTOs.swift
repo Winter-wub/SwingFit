@@ -33,6 +33,7 @@ public struct MatchDTO: Codable {
     public let isComplete: Bool
     public let aiSummary: String?
     public let aiSummaryLanguage: String?
+    public let sportRaw: String?
     public let swings: [SwingDTO]
 
     public init(from match: Match) {
@@ -47,6 +48,7 @@ public struct MatchDTO: Codable {
         self.isComplete = match.isComplete
         self.aiSummary = match.aiSummary
         self.aiSummaryLanguage = match.aiSummaryLanguage
+        self.sportRaw = match.sportRaw
         self.swings = (match.swings ?? []).map { SwingDTO(from: $0) }
     }
 }

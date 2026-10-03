@@ -130,6 +130,60 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         }
     }
 
+    // MARK: - Sport Correction
+    public func changeSport(matchId: UUID, to sport: SportType) {
+        applySportChange(matchId: matchId, sport: sport)
+
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated else { return }
+
+        let payload: [String: Any] = [
+            "changeSportMatchId": matchId.uuidString,
+            "sport": sport.rawValue
+        ]
+        session.transferUserInfo(payload)
+        print("WatchSyncManager: Dispatched sport change for \(matchId) -> \(sport.rawValue)")
+    }
+
+    private func applySportChange(matchId: UUID, sport: SportType) {
+        guard let context = modelContext else { return }
+        let descriptor = FetchDescriptor<Match>(predicate: #Predicate { $0.id == matchId })
+        guard let match = try? context.fetch(descriptor).first else { return }
+
+        match.sport = sport
+        try? context.save()
+
+        #if os(watchOS)
+        // The watch saved the HKWorkout, so only it can replace it.
+        let matchStart = match.startDate
+        Task {
+            await HealthWorkoutSportEditor.shared.updateWorkout(containing: matchStart, to: sport)
+        }
+        #endif
+    }
+
+    #if os(watchOS)
+    /// Fixes Health workouts saved with the wrong sport before the activity type
+    /// followed the selected sport. Sessions mixing sports are left alone.
+    public func reconcileHealthWorkoutSports() async {
+        guard let context = modelContext else { return }
+        let cutoff = Date().addingTimeInterval(-60 * 24 * 60 * 60)
+        let descriptor = FetchDescriptor<WorkoutSession>(
+            predicate: #Predicate { $0.isComplete && $0.startDate > cutoff }
+        )
+        guard let sessions = try? context.fetch(descriptor) else { return }
+
+        for session in sessions {
+            let matches = (session.matches ?? []).filter { !isMatchDeleted($0.id) }
+            let sports = Set(matches.map(\.sport))
+            guard sports.count == 1, let sport = sports.first,
+                  let first = matches.min(by: { $0.startDate < $1.startDate }) else { continue }
+            await HealthWorkoutSportEditor.shared.updateWorkout(containing: first.startDate, to: sport)
+        }
+    }
+    #endif
+
     private override init() {
         super.init()
         if WCSession.isSupported() {
@@ -262,17 +316,7 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         let dto = MatchDTO(from: match)
         do {
             let data = try JSONEncoder().encode(dto)
-            let payload: [String: Any] = ["match": data]
-
-            // Always queue guaranteed background transfer
-            session.transferUserInfo(payload)
-
-            // If phone is awake and reachable, also send instant message
-            if session.isReachable {
-                session.sendMessage(payload, replyHandler: nil) { error in
-                    print("WatchSyncManager instant sendMessage error: \(error.localizedDescription)")
-                }
-            }
+            transferData(data, key: "match", via: session)
             print("WatchSyncManager: queued match \(match.id) for sync to iPhone")
         } catch {
             print("WatchSyncManager encode error: \(error)")
@@ -291,18 +335,40 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         let dto = SessionDTO(from: workoutSession)
         do {
             let data = try JSONEncoder().encode(dto)
-            let payload: [String: Any] = ["session": data]
+            transferData(data, key: "session", via: session)
+            print("WatchSyncManager: queued session \(workoutSession.id) for sync to iPhone")
+        } catch {
+            print("WatchSyncManager encode error: \(error)")
+        }
+    }
 
+    /// Long matches carry thousands of swings, which exceeds the WatchConnectivity
+    /// dictionary payload limit. Those go as a file transfer, which has no limit.
+    private static let maxDictionaryPayloadBytes = 60_000
+
+    private func transferData(_ data: Data, key: String, via session: WCSession) {
+        let payload: [String: Any] = [key: data]
+
+        guard data.count > Self.maxDictionaryPayloadBytes else {
+            // Always queue guaranteed background transfer
             session.transferUserInfo(payload)
 
+            // If phone is awake and reachable, also send instant message
             if session.isReachable {
                 session.sendMessage(payload, replyHandler: nil) { error in
                     print("WatchSyncManager instant sendMessage error: \(error.localizedDescription)")
                 }
             }
-            print("WatchSyncManager: queued session \(workoutSession.id) for sync to iPhone")
+            return
+        }
+
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("\(key)-\(UUID().uuidString).json")
+        do {
+            try data.write(to: url)
+            session.transferFile(url, metadata: ["payloadKey": key])
         } catch {
-            print("WatchSyncManager encode error: \(error)")
+            print("WatchSyncManager: failed to write \(key) transfer file: \(error)")
         }
     }
 
@@ -372,6 +438,14 @@ public final class WatchSyncManager: NSObject, ObservableObject {
             return
         }
 
+        if let idStr = dict["changeSportMatchId"] as? String,
+           let uuid = UUID(uuidString: idStr),
+           let sportRaw = dict["sport"] as? String,
+           let sport = SportType(rawValue: sportRaw) {
+            applySportChange(matchId: uuid, sport: sport)
+            return
+        }
+
         // Handle Request Sync on Watch
         if let isRequest = dict["requestSync"] as? Bool, isRequest {
             handleSyncRequestOnWatch()
@@ -426,6 +500,9 @@ public final class WatchSyncManager: NSObject, ObservableObject {
         match.averageHeartRate = dto.averageHeartRate
         match.duration = dto.duration
         match.isComplete = dto.isComplete
+        if let sportRaw = dto.sportRaw {
+            match.sportRaw = sportRaw
+        }
 
         // Sync swings
         let existingSwingIds = Set((match.swings ?? []).map { $0.id })
@@ -548,6 +625,31 @@ extension WatchSyncManager: WCSessionDelegate {
     nonisolated public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         Task { @MainActor in
             self.processPayload(message)
+        }
+    }
+
+    nonisolated public func session(_ session: WCSession, didReceive file: WCSessionFile) {
+        // The file is deleted when this method returns, so read it synchronously.
+        guard let key = file.metadata?["payloadKey"] as? String,
+              let data = try? Data(contentsOf: file.fileURL) else {
+            print("WatchSyncManager: received unreadable file transfer")
+            return
+        }
+        Task { @MainActor in
+            self.processPayload([key: data])
+        }
+    }
+
+    nonisolated public func session(_ session: WCSession, didFinish fileTransfer: WCSessionFileTransfer, error: Error?) {
+        if let error = error {
+            print("WatchSyncManager file transfer failed: \(error.localizedDescription)")
+        }
+        try? FileManager.default.removeItem(at: fileTransfer.file.fileURL)
+    }
+
+    nonisolated public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        if let error = error {
+            print("WatchSyncManager userInfo transfer failed: \(error.localizedDescription)")
         }
     }
 

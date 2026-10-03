@@ -44,9 +44,9 @@ public final class WorkoutManager: NSObject, ObservableObject {
         }
     }
 
-    public func startWorkout() async {
+    public func startWorkout(sport: SportType) async {
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = .pickleball
+        configuration.activityType = sport == .badminton ? .badminton : .pickleball
         configuration.locationType = .outdoor
 
         do {
@@ -108,7 +108,7 @@ public final class WorkoutManager: NSObject, ObservableObject {
         do {
             try await builder.endCollection(at: Date())
             _ = try await builder.finishWorkout()
-            print("Successfully finished and saved Pickleball HKWorkout!")
+            print("Successfully finished and saved HKWorkout!")
         } catch {
             print("Error finishing workout: \(error.localizedDescription)")
         }

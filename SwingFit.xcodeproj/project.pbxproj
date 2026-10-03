@@ -52,6 +52,7 @@
 		E85F82EA24D9D69AE51C5F7D /* AIChatProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579B981FF178603E8C1345CA /* AIChatProvider.swift */; };
 		EBB9453E4B478662E12DB033 /* AISummaryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BFB59783A36CFD36FF77E0 /* AISummaryService.swift */; };
 		EBF941D7C4B9774A2B3A8EA1 /* CoachComposerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B026E54B8A6D1799734A27C3 /* CoachComposerView.swift */; };
+		F1B77AE0F9A36329DCEFFE9E /* HealthWorkoutSportEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA76F062C8E9A8C77F6E05E /* HealthWorkoutSportEditor.swift */; };
 		FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556E3F28ADBF865F7E32DF2 /* PickleballScore.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		AB0BE0F4F7EA4853FB000553 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		AB6F0927F695793BB60CD05E /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 		B026E54B8A6D1799734A27C3 /* CoachComposerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachComposerView.swift; sourceTree = "<group>"; };
+		BFA76F062C8E9A8C77F6E05E /* HealthWorkoutSportEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthWorkoutSportEditor.swift; sourceTree = "<group>"; };
 		BFCDC629CBA6A2BED392CD9A /* CoachThreadStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachThreadStore.swift; sourceTree = "<group>"; };
 		C24D85117913AD45E28CFD26 /* AISummaryServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AISummaryServiceTests.swift; sourceTree = "<group>"; };
 		CAB3A9350EC4A9C0C5603E84 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		304E6D8B00D4B074E3AAEE9E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				BFA76F062C8E9A8C77F6E05E /* HealthWorkoutSportEditor.swift */,
 				AB6F0927F695793BB60CD05E /* MotionManager.swift */,
 				6876D3F12FF4D71C1AD2D60A /* WorkoutManager.swift */,
 			);
@@ -447,6 +450,7 @@
 				4DE3A61AAE7366E314CEC3DB /* AIChatTypes.swift in Sources */,
 				574AC8A525AA80BEDED71DE2 /* AISummaryService.swift in Sources */,
 				DF08C5FF1DCAD98EC122AC29 /* BadmintonScore.swift in Sources */,
+				F1B77AE0F9A36329DCEFFE9E /* HealthWorkoutSportEditor.swift in Sources */,
 				14744D63B46B0FDF30FD438F /* Match.swift in Sources */,
 				B826A973A0331306702B8A29 /* MotionManager.swift in Sources */,
 				FE5042E9C001679FE2F85AD4 /* PickleballScore.swift in Sources */,

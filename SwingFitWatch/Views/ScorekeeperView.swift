@@ -190,6 +190,9 @@ public struct ScorekeeperView: View {
             setupRemoteCommandHandler()
             syncAllPastMatches()
             broadcastState(force: true)
+            Task {
+                await WatchSyncManager.shared.reconcileHealthWorkoutSports()
+            }
         }
     }
 
@@ -672,7 +675,7 @@ public struct ScorekeeperView: View {
     // MARK: - Actions & Session Lifecyle
     private func startSession() async {
         _ = await workoutManager.requestAuthorization()
-        await workoutManager.startWorkout()
+        await workoutManager.startWorkout(sport: selectedSport)
         motionManager.startTracking()
 
         let session = WorkoutSession(startDate: Date())

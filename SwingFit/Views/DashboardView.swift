@@ -864,6 +864,30 @@ public struct MatchAnalysisCardView: View {
                 VStack(alignment: .leading, spacing: 14) {
                     Divider()
 
+                    // Sport Correction
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("SPORT")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.secondary)
+                            .tracking(1.0)
+
+                        Picker("Sport", selection: Binding(
+                            get: { match.sport },
+                            set: { WatchSyncManager.shared.changeSport(matchId: match.id, to: $0) }
+                        )) {
+                            ForEach(SportType.allCases, id: \.self) { sport in
+                                Text(sport.rawValue).tag(sport)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+
+                        Text("Apple Health updates the next time SwingFit runs on your Apple Watch.")
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                    }
+
+                    Divider()
+
                     // Shot Distribution Bars
                     Text("SHOT DISTRIBUTION")
                         .font(.system(size: 10, weight: .bold))
